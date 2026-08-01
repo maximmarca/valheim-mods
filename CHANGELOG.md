@@ -4,6 +4,10 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.11.0 — 2026-08-02 · Dietas extra (lobos comen carne de oso)
+- Config nueva `ExtraFood` en `[General]`: pares `criatura:ítem` que se agregan a la lista de comida del animal. Default: `Wolf:BearMeat` — vanilla excluye explícitamente la carne de oso de la dieta del lobo.
+- Sirve para cualquier combinación (ej. `Boar:Turnip`); avisa en el log si el prefab no existe.
+
 ### v0.10.0 — 2026-08-02 · Visuales para 3–5 estrellas
 - Vanilla define aspecto (escala/tinte/objetos extra) solo para 1★–2★ y el HUD solo tiene íconos para esas dos: un 3★+ se veía como criatura común y sin estrellas — poder invisible.
 - **Aspecto**: se extrapola la progresión visual de cada especie (`LevelEffects`): cada estrella extra es más grande (tope 2× el tamaño de 2★) y de tinte más marcado; el objeto extra de 2★ (los cuernos del ciervo) se conserva de ahí en adelante. Config `StarVisualsMaxStars` (5).

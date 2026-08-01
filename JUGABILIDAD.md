@@ -31,6 +31,7 @@ Funcionan **igual que domesticar un chancho**:
 ## Comida y forrajeo
 
 - Cada animal come **1 ítem por ciclo de hambre** y queda saciado **10 minutos** (todas las especies por igual).
+- **Los lobos comen carne de oso** *(v0.11.0)* — vanilla la excluía. Se pueden sumar más combinaciones en el config `ExtraFood` (pares `criatura:ítem`).
 - **Forrajeo**: un animal con hambre busca solo, en un radio de **10 m**, arbustos de frutas o cultivos cuyo fruto esté en su dieta, los cosecha y come lo que cae al piso. Lo que sobra queda en el suelo para los demás animales.
   - Solo cosechan **cuando tienen hambre** — no arrasan tu plantación por gusto.
   - Los lobos no forrajean (comen carne y los arbustos no dan carne).

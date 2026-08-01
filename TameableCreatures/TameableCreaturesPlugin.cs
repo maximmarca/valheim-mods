@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.10.0")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.11.0")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.10.0";
+	public const string PluginVersion = "0.11.0";
 
 	internal static ManualLogSource Log;
 
@@ -106,6 +106,8 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 
 	internal static ConfigEntry<int> StarVisualsMaxStars;
 
+	internal static ConfigEntry<string> ExtraFood;
+
 	private void Awake()
 	{
 		Log = base.Logger;
@@ -114,6 +116,7 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		FoodItems = base.Config.Bind("General", "FoodItems", "", "Comidas que aceptan, por nombre de prefab separadas por coma (ej: Raspberry,Blueberries,Carrot). Vacío = las mismas que el chancho.");
 		EnableBreeding = base.Config.Bind("General", "EnableBreeding", defaultValue: true, "Las criaturas domesticadas pueden criar (como los chanchos). Las crías nacen mansas.");
 		MakeCommandable = base.Config.Bind("General", "MakeCommandable", "Deer,Neck,Boar", "Criaturas domesticadas que obedecen el comando de seguir/quedarse (E), como los lobos. Por nombre de prefab, separadas por coma.");
+		ExtraFood = base.Config.Bind("General", "ExtraFood", "Wolf:BearMeat", "Comidas extra por criatura, pares criatura:ítem separados por coma (ej: Wolf:BearMeat,Boar:Turnip). Vanilla excluye la carne de oso de la dieta del lobo.");
 		FleeSeconds = base.Config.Bind("Comportamiento", "FleeSeconds", 5f, "Cuántos segundos corre una criatura no-Humanoid salvaje (ciervo) al asustarse.");
 		ScareRange = base.Config.Bind("Comportamiento", "ScareRange", 12f, "A cuántos metros de un jugador se asusta una criatura no-Humanoid salvaje (0 = solo se asusta al ser golpeada).");
 		MaxCreaturesNearby = base.Config.Bind("Cria", "MaxCreaturesNearby", 20, new ConfigDescription("Cuántos animales de la misma especie puede haber en el radio de chequeo (~10 m) antes de que dejen de criar. Vanilla ~5. 0 = no tocar.", new AcceptableValueRange<int>(0, 100)));
@@ -153,7 +156,7 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		AssistWindowSeconds = base.Config.Bind("Combate", "AssistWindowSeconds", 60f, new ConfigDescription("Segundos previos a la muerte en los que un golpe cuenta como asistencia.", new AcceptableValueRange<float>(5f, 300f)));
 		StarVisualsMaxStars = base.Config.Bind("Combate", "StarVisualsMaxStars", 5, new ConfigDescription("Hasta cuántas estrellas extender los visuales (tamaño/tinte) extrapolando la progresión vanilla de 1-2 estrellas.", new AcceptableValueRange<int>(2, 10)));
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.10.0 cargado (todo lo anterior + visuales 3-5 estrellas)");
+		Log.LogInfo("TameableCreatures 0.11.0 cargado (todo lo anterior + dietas extra)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component
@@ -196,6 +199,7 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		};
 	}
 }
+
 
 
 

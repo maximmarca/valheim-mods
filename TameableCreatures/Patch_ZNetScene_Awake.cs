@@ -51,6 +51,38 @@ internal static class Patch_ZNetScene_Awake
 				}
 			}
 		}
+		// v0.11.0: dietas extra por config (ej. lobos comen carne de oso, que
+		// vanilla excluye explícitamente de su lista).
+		array = TameableCreaturesPlugin.ExtraFood.Value.Split(',');
+		for (int j = 0; j < array.Length; j++)
+		{
+			string text3 = array[j].Trim();
+			int num2 = text3.IndexOf(':');
+			if (num2 <= 0)
+			{
+				continue;
+			}
+			string text4 = text3.Substring(0, num2).Trim();
+			string text5 = text3.Substring(num2 + 1).Trim();
+			GameObject prefab3 = __instance.GetPrefab(text4);
+			GameObject prefab4 = __instance.GetPrefab(text5);
+			MonsterAI monsterAI2 = ((prefab3 != null) ? prefab3.GetComponent<MonsterAI>() : null);
+			ItemDrop itemDrop2 = ((prefab4 != null) ? prefab4.GetComponent<ItemDrop>() : null);
+			if (monsterAI2 == null || itemDrop2 == null)
+			{
+				TameableCreaturesPlugin.Log.LogWarning("ExtraFood: '" + text3 + "' inválido (criatura sin MonsterAI o ítem inexistente), se ignora");
+				continue;
+			}
+			if (monsterAI2.m_consumeItems == null)
+			{
+				monsterAI2.m_consumeItems = new List<ItemDrop>();
+			}
+			if (!monsterAI2.m_consumeItems.Contains(itemDrop2))
+			{
+				monsterAI2.m_consumeItems.Add(itemDrop2);
+				TameableCreaturesPlugin.Log.LogInfo(text4 + " ahora también come " + text5);
+			}
+		}
 		int value = TameableCreaturesPlugin.MaxCreaturesNearby.Value;
 		if (value <= 0)
 		{
