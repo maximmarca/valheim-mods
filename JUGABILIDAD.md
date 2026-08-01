@@ -1,4 +1,4 @@
-# Guía de jugabilidad — mods MaxiFer
+﻿# Guía de jugabilidad — mods MaxiFer
 
 Cómo se juega con cada modificación, en detalle. Cambios técnicos en [CHANGELOG.md](CHANGELOG.md).
 
@@ -75,7 +75,7 @@ Funcionan **igual que domesticar un chancho**:
 - Un animal domesticado que **remata** a un enemigo tiene **2%** de subir una estrella en el acto; los que **asistieron** (le pegaron en el último minuto) tienen **1%** cada uno.
 - Tope: 5 estrellas. Vale para cualquier domesticado — lobos de guerra, pero también un chancho valiente o tus ciervos.
 - Combina con la cría: un animal que subió de estrellas peleando **hereda ese nivel a sus crías** — entrenar a la madre mejora la línea de sangre.
-- **Se ven** *(v0.10.0)*: de 3★ en adelante cada estrella agranda al bicho y le intensifica el tinte (siguiendo la progresión natural de su especie), y al apuntarlo el nombre muestra "★3/★4/★5". Aplica también a los enemigos salvajes de estrellas altas — ojo con el greydwarf gigante oscuro.
+- **Se ven** *(v0.10.0)*: de 3★ en adelante cada estrella agranda al bicho y le intensifica el tinte (siguiendo la progresión natural de su especie), y al apuntarlo se ven los íconos de estrella reales (3, 4 o 5 estrellitas). Aplica también a los enemigos salvajes de estrellas altas — ojo con el greydwarf gigante oscuro.
 
 ## Construcción (BuildTweaks)
 
@@ -88,3 +88,4 @@ Funcionan **igual que domesticar un chancho**:
 - En Valheim, la IA de los animales la simula **el cliente del jugador más cercano**, no el server. Y los efectos de sonido son objetos de red: los escuchan todos.
 - Por eso, **un cliente desactualizado contamina la partida**: si alguien juega con una versión vieja del mod, los ciervos que él simula gruñen como chanchos y sus bebés se ven adultos — para todos o para él según el efecto.
 - Regla simple: **después de cada update, todos bajan el `dist/TameableCreatures.dll` del repo antes de jugar**. El server lo actualiza Maxi.
+

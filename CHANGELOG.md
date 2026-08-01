@@ -4,6 +4,9 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.11.2 — 2026-08-02 · Estrellas de 3★+ con íconos reales
+- El HUD de 3★–5★ ahora muestra una **fila de N íconos de estrella** (clonando la estrellita vanilla, mismo sprite y espaciado) en lugar del texto "★N" junto al nombre.
+
 ### v0.11.1 — 2026-08-02 · Fix: prefab correcto de la carne de oso
 - El ítem real se llama `BjornMeat` (el oso del Deep North es "Bjorn"); `BearMeat` es otro asset. Default de `ExtraFood` corregido y verificado en el server: "Wolf ahora también come BjornMeat".
 
@@ -76,4 +79,5 @@ Rediseño de la siembra por caca en tres grupos (spec de Maxi):
 
 ## Infraestructura
 - **2026-08-01**: server dserver migrado a BepInEx nativo (`BEPINEX=true`, imagen lloesche — sobrevive autoupdates). 8 plugins activos: ActiveZones, BuildTweaks, DeathTweaks, MoreStars, PortalTweaks, ServerRules, ServerWelcome, TameableCreatures. Mundo MaxiFer conservado (backup pre-mods `worlds_local.pre-bepinex-20260801` + zips automáticos cada 6 h).
+
 

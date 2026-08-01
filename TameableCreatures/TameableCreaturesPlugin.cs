@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.11.1")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.11.2")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.11.1";
+	public const string PluginVersion = "0.11.2";
 
 	internal static ManualLogSource Log;
 
@@ -156,7 +156,7 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		AssistWindowSeconds = base.Config.Bind("Combate", "AssistWindowSeconds", 60f, new ConfigDescription("Segundos previos a la muerte en los que un golpe cuenta como asistencia.", new AcceptableValueRange<float>(5f, 300f)));
 		StarVisualsMaxStars = base.Config.Bind("Combate", "StarVisualsMaxStars", 5, new ConfigDescription("Hasta cuántas estrellas extender los visuales (tamaño/tinte) extrapolando la progresión vanilla de 1-2 estrellas.", new AcceptableValueRange<int>(2, 10)));
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.11.1 cargado (todo lo anterior + dietas extra)");
+		Log.LogInfo("TameableCreatures 0.11.2 cargado (todo lo anterior + dietas extra)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component
@@ -199,6 +199,7 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		};
 	}
 }
+
 
 
 

@@ -59,14 +59,17 @@ internal static class Patch_ZNetScene_Awake_StarVisuals
 	}
 }
 
-// HUD: para 3★+ (nivel 4+) el marco vanilla no tiene íconos — se agrega
-// "★N" al nombre de la criatura.
+// HUD: para 3★+ (nivel 4+) el marco vanilla no tiene íconos — se arma una
+// fila con N íconos de estrella reales, clonando la estrellita vanilla y
+// usando su mismo espaciado (v0.11.2; antes era texto "★N").
 [HarmonyPatch(typeof(EnemyHud), "UpdateHuds")]
 internal static class Patch_EnemyHud_UpdateHuds
 {
 	private static FieldInfo s_hudsField;
 
-	private static FieldInfo s_nameField;
+	private static FieldInfo s_level2Field;
+
+	private static FieldInfo s_level3Field;
 
 	private static void Postfix(EnemyHud __instance)
 	{
@@ -85,23 +88,77 @@ internal static class Patch_EnemyHud_UpdateHuds
 			{
 				continue;
 			}
-			int level = character.GetLevel();
-			if (level < 4)
+			if (s_level2Field == null)
+			{
+				s_level2Field = AccessTools.Field(item.Value.GetType(), "m_level2");
+				s_level3Field = AccessTools.Field(item.Value.GetType(), "m_level3");
+			}
+			RectTransform level2 = s_level2Field?.GetValue(item.Value) as RectTransform;
+			RectTransform level3 = s_level3Field?.GetValue(item.Value) as RectTransform;
+			if (level2 == null || level3 == null)
 			{
 				continue;
 			}
-			if (s_nameField == null)
+			int level = character.GetLevel();
+			Transform parent = level3.parent;
+			Transform container = parent.Find("tc_stars");
+			if (level < 4)
 			{
-				s_nameField = AccessTools.Field(item.Value.GetType(), "m_name");
-			}
-			if (s_nameField?.GetValue(item.Value) is TextMeshProUGUI textMeshProUGUI)
-			{
-				string text = " ★" + (level - 1);
-				if (!textMeshProUGUI.text.EndsWith(text))
+				if (container != null)
 				{
-					textMeshProUGUI.text += text;
+					container.gameObject.SetActive(value: false);
+				}
+				continue;
+			}
+			if (container == null)
+			{
+				GameObject gameObject = new GameObject("tc_stars", typeof(RectTransform));
+				container = gameObject.transform;
+				container.SetParent(parent, worldPositionStays: false);
+				RectTransform rectTransform = (RectTransform)container;
+				rectTransform.anchorMin = level3.anchorMin;
+				rectTransform.anchorMax = level3.anchorMax;
+				rectTransform.pivot = level3.pivot;
+				rectTransform.anchoredPosition = level3.anchoredPosition;
+				rectTransform.localScale = level3.localScale;
+			}
+			int needed = level - 1;
+			if (container.childCount != needed)
+			{
+				for (int num = container.childCount - 1; num >= 0; num--)
+				{
+					Object.Destroy(container.GetChild(num).gameObject);
+				}
+				GameObject template;
+				float dx;
+				float x0;
+				if (level3.childCount >= 2 && level3.GetChild(0) is RectTransform star0 && level3.GetChild(1) is RectTransform star1)
+				{
+					template = star0.gameObject;
+					dx = Mathf.Abs(star1.anchoredPosition.x - star0.anchoredPosition.x);
+					x0 = star0.anchoredPosition.x;
+					if (dx < 1f)
+					{
+						dx = 12f;
+					}
+				}
+				else
+				{
+					template = level2.gameObject;
+					dx = 14f;
+					x0 = 0f;
+				}
+				for (int i = 0; i < needed; i++)
+				{
+					GameObject star = Object.Instantiate(template, container);
+					star.SetActive(value: true);
+					if (star.transform is RectTransform rt)
+					{
+						rt.anchoredPosition = new Vector2(x0 + dx * (float)i, rt.anchoredPosition.y);
+					}
 				}
 			}
+			container.gameObject.SetActive(value: true);
 		}
 	}
 }
