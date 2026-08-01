@@ -4,6 +4,14 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.8.0 — 2026-08-01 · Siembra por etapas (3 grupos)
+Rediseño de la siembra por caca en tres grupos (spec de Maxi):
+- **Grupo 1 — Arbustos (frambuesa, arándano)**: la semilla ya no planta un arbusto completo. Nace al **30% de tamaño, con tinte verdoso y sin fruto**, pasa al **50%** y al **100%** en un total de `StagedGrowSeconds` = **5400 s (3 noches de juego, ~90 min reales; mitad en cada etapa)**. Al madurar recupera el color, aparece la **primera fruta** y sigue el ciclo vanilla de respawn (intacto, ~5 h).
+- **Grupo 2 — Hongos**: mismo crecimiento por etapas. Además, al madurar **se multiplican**: +1 hongo (60%) o +2 (40%), con tope de **7 por manchón en radio de 4 m**. Los nuevos también nacen al 30% y crecen (colonia progresiva hasta el tope).
+- **Grupo 3 — Zanahoria/nabo/cebolla**: sin cambios — plantín vanilla real (~75 min, cosecha única). 
+- Implementación: componente `PoopedPlantGrowth` agregado a los prefabs de `StagedPlants`; **solo actúa si el ZDO tiene la marca `tc_planted`** (sembrado por animal) — arbustos y hongos silvestres intactos. El estado sin-fruto usa el sistema vanilla (`s_picked`/`s_pickedTime` + `RPC_SetPicked`); al spawnear se fija `pickedTime = ahora` porque si queda en 0 el respawn vanilla lo retro-data aleatorio y daría fruta antes de tiempo. Escala/tinte los aplica cada cliente leyendo el ZDO (requiere mod en todos los clientes para verse).
+- Config nueva en `[Siembra]`: `StagedPlants`, `StagedGrowSeconds`, `StagedStartScale`, `StagedMidScale`, `MushroomPrefabs`, `MushroomChanceOne`, `MushroomMaxInPatch`, `MushroomPatchRadius`.
+
 ### v0.7.1 — 2026-08-01 · Tope de densidad de siembra
 - **Fix de balance de la 0.7.0**: cada comida plantaba 1–3 semillas (factor de reproducción ~2 por ítem comido) → crecimiento **exponencial** de plantas; verificado en juego: cadena de ciervos comiendo zanahorias y replantándolas sin freno (32 siembras en una sesión).
 - **Tope de densidad**: antes de plantar, cada semilla cuenta las plantas/arbustos/pickables en un radio de `PoopDensityRadius` (4 m); si ya hay `PoopMaxPlantsNearby` (10) o más, la semilla se pierde. El corral llega a un equilibrio y la siembra se frena sola. También evita que alfombren las plantaciones del jugador.

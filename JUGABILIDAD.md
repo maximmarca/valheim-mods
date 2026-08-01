@@ -40,19 +40,24 @@ Funcionan **igual que domesticar un chancho**:
 
 - Cuando un animal come una fruta/verdura del mapa, la digiere **1–3 minutos** y después hace caca **1–3 semillas**, dispersas hasta 1,5 m a su alrededor.
 - **Solo germinan las semillas que caen sobre suelo cultivado** (pasado con el cultivator). El resto se pierde.
-- Qué siembra cada comida:
+- Qué siembra cada comida, en tres grupos *(v0.8.0)*:
 
-  | Come | Planta |
-  |---|---|
-  | Frambuesa | Arbusto de frambuesas |
-  | Arándano | Arbusto de arándanos |
-  | Hongo | Hongo |
-  | Zanahoria | Plantín de zanahoria (crece normal) |
-  | Nabo | Plantín de nabo |
-  | Cebolla | Plantín de cebolla |
+  **Arbustos** (frambuesa → arbusto de frambuesas, arándano → arbusto de arándanos):
+  el arbusto nace **chiquito (30%), verdoso y sin fruta**. Crece al 50% y al 100% en
+  **3 noches de juego (~90 min reales)**. Recién al 100% recupera su color y da la
+  **primera fruta**; de ahí en más el respawn de fruta es el normal del juego (~5 h).
+
+  **Hongos** (hongo → hongo): crecen igual que los arbustos (30% → 50% → 100% en 3
+  noches) y además, al madurar, **se multiplican solos**: +1 hongo (60%) o +2 (40%),
+  hasta un máximo de **7 hongos por manchón** (radio 4 m). Los nuevos también nacen
+  chiquitos y siguen el ciclo — una colonia que se expande hasta su tope natural.
+
+  **Verduras** (zanahoria/nabo/cebolla → plantín): rumbo 100% vanilla — el plantín
+  crece ~75 min, se cosecha una vez y da 1 verdura.
 
 - No planta encima de otra planta (respeta 0,4 m de espacio).
 - **Tope de densidad** *(v0.7.1)*: si en 4 m alrededor del punto ya hay 10 plantas/arbustos, la semilla se pierde. Así el corral llega a un equilibrio natural en vez de volverse una plaga, y no te alfombran la huerta.
+- Los arbustos/hongos **silvestres** (los del mundo) no cambian en nada — las etapas aplican solo a lo sembrado por animales.
 
 ### El corral autosustentable (combinando todo)
 

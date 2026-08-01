@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.7.1")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.8.0")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.7.1";
+	public const string PluginVersion = "0.8.0";
 
 	internal static ManualLogSource Log;
 
@@ -82,6 +82,22 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 
 	internal static ConfigEntry<float> PoopDensityRadius;
 
+	internal static ConfigEntry<string> StagedPlants;
+
+	internal static ConfigEntry<float> StagedGrowSeconds;
+
+	internal static ConfigEntry<float> StagedStartScale;
+
+	internal static ConfigEntry<float> StagedMidScale;
+
+	internal static ConfigEntry<string> MushroomPrefabs;
+
+	internal static ConfigEntry<float> MushroomChanceOne;
+
+	internal static ConfigEntry<int> MushroomMaxInPatch;
+
+	internal static ConfigEntry<float> MushroomPatchRadius;
+
 	private void Awake()
 	{
 		Log = base.Logger;
@@ -116,8 +132,16 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		PoopScatterRadius = base.Config.Bind("Siembra", "PoopScatterRadius", 1.5f, new ConfigDescription("Radio en metros en el que se dispersan las semillas alrededor del animal.", new AcceptableValueRange<float>(0.5f, 5f)));
 		PoopMaxPlantsNearby = base.Config.Bind("Siembra", "PoopMaxPlantsNearby", 10, new ConfigDescription("Tope de densidad: si ya hay esta cantidad de plantas/arbustos en el radio PoopDensityRadius, la semilla se pierde. Evita la plaga exponencial. 0 = sin tope.", new AcceptableValueRange<int>(0, 100)));
 		PoopDensityRadius = base.Config.Bind("Siembra", "PoopDensityRadius", 4f, new ConfigDescription("Radio en metros del chequeo de densidad.", new AcceptableValueRange<float>(1f, 15f)));
+		StagedPlants = base.Config.Bind("Siembra", "StagedPlants", "RaspberryBush,BlueberryBush,Pickable_Mushroom", "Prefabs sembrados por caca que crecen por etapas (30%→50%→100%, con tinte y sin fruto hasta madurar). Los silvestres no se tocan.");
+		StagedGrowSeconds = base.Config.Bind("Siembra", "StagedGrowSeconds", 5400f, new ConfigDescription("Segundos totales de crecimiento por etapas. 5400 = 3 noches de juego (~90 min reales); mitad en 30% y mitad en 50%.", new AcceptableValueRange<float>(60f, 36000f)));
+		StagedStartScale = base.Config.Bind("Siembra", "StagedStartScale", 0.3f, new ConfigDescription("Tamaño inicial de lo sembrado (primera etapa).", new AcceptableValueRange<float>(0.1f, 1f)));
+		StagedMidScale = base.Config.Bind("Siembra", "StagedMidScale", 0.5f, new ConfigDescription("Tamaño de la etapa intermedia.", new AcceptableValueRange<float>(0.1f, 1f)));
+		MushroomPrefabs = base.Config.Bind("Siembra", "MushroomPrefabs", "Pickable_Mushroom", "Prefabs que al madurar se multiplican solos (grupo hongos).");
+		MushroomChanceOne = base.Config.Bind("Siembra", "MushroomChanceOne", 0.6f, new ConfigDescription("Probabilidad de multiplicarse por 1 (el resto de las veces, por 2).", new AcceptableValueRange<float>(0f, 1f)));
+		MushroomMaxInPatch = base.Config.Bind("Siembra", "MushroomMaxInPatch", 7, new ConfigDescription("Tope de hongos del mismo tipo en el manchón (radio MushroomPatchRadius).", new AcceptableValueRange<int>(1, 50)));
+		MushroomPatchRadius = base.Config.Bind("Siembra", "MushroomPatchRadius", 4f, new ConfigDescription("Radio en metros del manchón de hongos.", new AcceptableValueRange<float>(1f, 15f)));
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.7.1 cargado (voces propias + crías bebé pastel + regen + forrajeo + siembra por caca con tope)");
+		Log.LogInfo("TameableCreatures 0.8.0 cargado (voces + bebés + regen + forrajeo + siembra por etapas)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component
@@ -160,4 +184,5 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		};
 	}
 }
+
 

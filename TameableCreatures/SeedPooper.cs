@@ -103,7 +103,11 @@ public class SeedPooper : MonoBehaviour
 					continue;
 				}
 				Quaternion quaternion = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-				Object.Instantiate(prefab, vector2, quaternion);
+				GameObject planted = Object.Instantiate(prefab, vector2, quaternion);
+				if (IsStaged(text))
+				{
+					MarkPlanted(planted);
+				}
 				Piece component = prefab.GetComponent<Piece>();
 				if (component != null && component.m_placeEffect != null)
 				{
@@ -119,7 +123,41 @@ public class SeedPooper : MonoBehaviour
 		}
 	}
 
-	private static bool SpotOccupied(Vector3 pos)
+	// v0.8.0: los prefabs de StagedPlants nacen chicos, tintados y sin fruto;
+	// la marca tc_planted activa el PoopedPlantGrowth solo en los sembrados.
+	private static bool IsStaged(string prefabName)
+	{
+		string[] array = TameableCreaturesPlugin.StagedPlants.Value.Split(',');
+		foreach (string text in array)
+		{
+			if (text.Trim() == prefabName)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	internal static void MarkPlanted(GameObject go)
+	{
+		ZNetView component = go.GetComponent<ZNetView>();
+		if (component == null || !component.IsValid() || ZNet.instance == null)
+		{
+			return;
+		}
+		component.GetZDO().Set(PoopedPlantGrowth.PlantedHash, (float)ZNet.instance.GetTimeSeconds());
+		Pickable component2 = go.GetComponent<Pickable>();
+		if (component2 != null)
+		{
+			// arranca cosechado (sin fruto) y con el reloj en ahora — si quedara
+			// en 0, el respawn vanilla lo retro-data aleatorio y daría fruta antes.
+			component.GetZDO().Set(ZDOVars.s_picked, value: true);
+			component.GetZDO().Set(ZDOVars.s_pickedTime, ZNet.instance.GetTime().Ticks);
+			component2.SetPicked(picked: true);
+		}
+	}
+
+	internal static bool SpotOccupied(Vector3 pos)
 	{
 		Collider[] array = Physics.OverlapSphere(pos + Vector3.up * 0.2f, 0.4f);
 		foreach (Collider collider in array)
