@@ -1,8 +1,11 @@
-# Changelog — mods MaxiFer Valheim
+﻿# Changelog — mods MaxiFer Valheim
 
 Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABILIDAD.md).
 
 ## TameableCreatures
+
+### v0.11.1 — 2026-08-02 · Fix: prefab correcto de la carne de oso
+- El ítem real se llama `BjornMeat` (el oso del Deep North es "Bjorn"); `BearMeat` es otro asset. Default de `ExtraFood` corregido y verificado en el server: "Wolf ahora también come BjornMeat".
 
 ### v0.11.0 — 2026-08-02 · Dietas extra (lobos comen carne de oso)
 - Config nueva `ExtraFood` en `[General]`: pares `criatura:ítem` que se agregan a la lista de comida del animal. Default: `Wolf:BearMeat` — vanilla excluye explícitamente la carne de oso de la dieta del lobo.
@@ -73,3 +76,4 @@ Rediseño de la siembra por caca en tres grupos (spec de Maxi):
 
 ## Infraestructura
 - **2026-08-01**: server dserver migrado a BepInEx nativo (`BEPINEX=true`, imagen lloesche — sobrevive autoupdates). 8 plugins activos: ActiveZones, BuildTweaks, DeathTweaks, MoreStars, PortalTweaks, ServerRules, ServerWelcome, TameableCreatures. Mundo MaxiFer conservado (backup pre-mods `worlds_local.pre-bepinex-20260801` + zips automáticos cada 6 h).
+
