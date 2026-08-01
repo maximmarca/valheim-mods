@@ -14,8 +14,9 @@ Ciervos y necks domesticables, con cría, mutaciones de estrellas y cuidado auto
 - **Voces propias** *(v0.5.0)*: fix — el ciervo y el neck heredaban los sonidos del Boar (`m_idleSound`/`m_alertedEffects` viven en BaseAI y el copy de campos públicos los traía). Ahora conservan su voz en idle, alerta, caricias, amor y parto; los efectos visuales (corazones, humo) quedan.
 - **Regeneración** *(v0.6.0)*: todos los animales domesticados curan 5% de la vida máxima cada 10 s fuera de combate (mínimo 1 HP; con hambre, la mitad). Vanilla era vida completa en 1 hora y nada con hambre — por eso se veía "+0".
 - **Forrajeo** *(v0.6.0)*: los domesticados con hambre cosechan solos arbustos/cultivos cuyo fruto esté en su lista de comida (radio 10 m) y comen lo que cae. Solo cosechan con hambre (1 ítem por ciclo de 10 min, igual que el chancho).
+- **Siembra por caca** *(v0.7.0)*: al comer un ítem del mapa `PoopMap`, tras 1–3 min de digestión el animal hace caca 1–3 semillas dispersas en ~1,5 m; cada semilla que cae sobre **suelo cultivado** planta el prefab mapeado (frutos rojos → arbusto, hongo → hongo, zanahoria/nabo/cebolla → plantín vanilla que crece). Las que caen fuera se pierden. Con el forrajeo se cierra el ciclo: corral cultivado → comen → siembran → crece → vuelven a comer.
 
-Config: `BepInEx/config/fer.valheim.tameablecreatures.cfg` — secciones `[General]`, `[Comportamiento]`, `[Cria]`, `[Cuidado]`.
+Config: `BepInEx/config/fer.valheim.tameablecreatures.cfg` — secciones `[General]`, `[Comportamiento]`, `[Cria]`, `[Cuidado]`, `[Siembra]`.
 
 ### BuildTweaks (v0.1.0)
 Las piezas de la pestaña **Building** del martillo no requieren mesa de trabajo para construirse (solo esa pestaña; Crafting/Furniture siguen igual). Efecto local de cada cliente — instalalo si lo querés. Config: `NoStationCategories` (se puede sumar `BuildingStonecutter` para la piedra).
@@ -39,6 +40,7 @@ dotnet build BuildTweaks/BuildTweaks.csproj -c Release -p:ValheimDir="C:\ruta\a\
 
 | Versión | Cambios |
 |---|---|
+| 0.7.0 | Siembra por caca: al comer, digestión 1–3 min y 1–3 semillas que plantan en suelo cultivado (`[Siembra]`) |
 | 0.6.0 | Regeneración fuera de combate + forrajeo de arbustos/cultivos + config `FedDurationSeconds` (default: igual que el chancho) |
 | 0.5.0 | Fix voces (no más sonidos de chancho en ciervo/neck) + crías bebé pastel + BuildTweaks |
 | 0.4.0 | Versión original de Fer (base de este repo, reconstruida por decompilación) |

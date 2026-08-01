@@ -62,6 +62,10 @@ internal static class Patch_Tameable_Awake
 		{
 			__instance.gameObject.AddComponent<TamedForager>();
 		}
+		if (__instance.GetComponent<SeedPooper>() == null)
+		{
+			__instance.gameObject.AddComponent<SeedPooper>();
+		}
 	}
 }
 

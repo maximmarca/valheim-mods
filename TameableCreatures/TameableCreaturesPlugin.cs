@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.6.0")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.7.0")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.6.0";
+	public const string PluginVersion = "0.7.0";
 
 	internal static ManualLogSource Log;
 
@@ -64,6 +64,20 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 
 	internal static ConfigEntry<float> FedDurationSeconds;
 
+	internal static ConfigEntry<bool> PoopEnabled;
+
+	internal static ConfigEntry<string> PoopMap;
+
+	internal static ConfigEntry<float> DigestMinSeconds;
+
+	internal static ConfigEntry<float> DigestMaxSeconds;
+
+	internal static ConfigEntry<int> PoopSeedsMin;
+
+	internal static ConfigEntry<int> PoopSeedsMax;
+
+	internal static ConfigEntry<float> PoopScatterRadius;
+
 	private void Awake()
 	{
 		Log = base.Logger;
@@ -89,8 +103,15 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		ForageRange = base.Config.Bind("Cuidado", "ForageRange", 10f, new ConfigDescription("Radio en metros en el que buscan arbustos/cultivos para comer.", new AcceptableValueRange<float>(1f, 30f)));
 		ForageIntervalSeconds = base.Config.Bind("Cuidado", "ForageIntervalSeconds", 10f, new ConfigDescription("Cada cuántos segundos revisan si hay algo para cosechar (solo con hambre).", new AcceptableValueRange<float>(2f, 120f)));
 		FedDurationSeconds = base.Config.Bind("Cuidado", "FedDurationSeconds", 0f, new ConfigDescription("Segundos que las criaturas de la lista (ciervo/neck) quedan saciadas tras comer 1 ítem. Comen 1 ítem por ciclo de hambre. 0 = igual que el chancho (600 s, 10 min).", new AcceptableValueRange<float>(0f, 7200f)));
+		PoopEnabled = base.Config.Bind("Siembra", "PoopEnabled", defaultValue: true, "Al comer un ítem del mapa PoopMap, el animal hace caca semillas tras la digestión; las que caen sobre suelo cultivado plantan el prefab mapeado.");
+		PoopMap = base.Config.Bind("Siembra", "PoopMap", "Raspberry:RaspberryBush,Blueberries:BlueberryBush,Mushroom:Pickable_Mushroom,Carrot:sapling_carrot,Turnip:sapling_turnip,Onion:sapling_onion", "Mapa comida:planta separado por comas (nombre de prefab del ítem comido : prefab a plantar).");
+		DigestMinSeconds = base.Config.Bind("Siembra", "DigestMinSeconds", 60f, new ConfigDescription("Digestión mínima en segundos antes de hacer caca.", new AcceptableValueRange<float>(5f, 600f)));
+		DigestMaxSeconds = base.Config.Bind("Siembra", "DigestMaxSeconds", 180f, new ConfigDescription("Digestión máxima en segundos antes de hacer caca.", new AcceptableValueRange<float>(5f, 900f)));
+		PoopSeedsMin = base.Config.Bind("Siembra", "PoopSeedsMin", 1, new ConfigDescription("Mínimo de semillas por caca.", new AcceptableValueRange<int>(0, 10)));
+		PoopSeedsMax = base.Config.Bind("Siembra", "PoopSeedsMax", 3, new ConfigDescription("Máximo de semillas por caca.", new AcceptableValueRange<int>(1, 10)));
+		PoopScatterRadius = base.Config.Bind("Siembra", "PoopScatterRadius", 1.5f, new ConfigDescription("Radio en metros en el que se dispersan las semillas alrededor del animal.", new AcceptableValueRange<float>(0.5f, 5f)));
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.6.0 cargado (voces propias + crías bebé pastel + regen + forrajeo)");
+		Log.LogInfo("TameableCreatures 0.7.0 cargado (voces propias + crías bebé pastel + regen + forrajeo + siembra por caca)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component
