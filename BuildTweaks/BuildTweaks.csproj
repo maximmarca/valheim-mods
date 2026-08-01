@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>BuildTweaks</AssemblyName>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>12.0</LangVersion>
+    <Version>0.1.0</Version>
+    <!-- Ruta del Valheim con BepInEx instalado; overrideable: dotnet build -p:ValheimDir=... -->
+    <ValheimDir Condition="'$(ValheimDir)' == ''">E:\Steam\steamapps\common\Valheim</ValheimDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BepInEx">
+      <HintPath>$(ValheimDir)\BepInEx\core\BepInEx.dll</HintPath>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(ValheimDir)\BepInEx\core\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="assembly_valheim">
+      <HintPath>$(ValheimDir)\valheim_Data\Managed\assembly_valheim.dll</HintPath>
+    </Reference>
+    <Reference Include="assembly_utils">
+      <HintPath>$(ValheimDir)\valheim_Data\Managed\assembly_utils.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(ValheimDir)\valheim_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ValheimDir)\valheim_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

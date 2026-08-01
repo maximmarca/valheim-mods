@@ -1,0 +1,27 @@
+﻿ACTUALIZACION MODS TESTSERVER v0.6.0 (2026-08-01)
+=================================================
+
+TameableCreatures.dll  (0.4.0 -> 0.6.0)  REEMPLAZAR en BepInEx\plugins
+- FIX: ciervos y necks ya no hacen sonidos de chancho (conservan su voz;
+  los efectos visuales de corazones/domesticacion quedan).
+- NUEVO crias bebe: nacen a mitad de tamano y color pastel, crecen solas
+  a los 50 min reales. Los bebes no crian hasta crecer. Para VERLOS chicos
+  el mod debe estar actualizado en server y en TODOS los clientes.
+- NUEVO regeneracion (todos los animales domesticados, tambien chanchos y
+  lobos): fuera de combate curan 5% de la vida maxima cada 10 s (minimo
+  1 HP; con hambre, la mitad). Antes: vida completa en 1 HORA y nada con
+  hambre -- por eso se veia "+0".
+- NUEVO forrajeo (todos los domesticados): si tienen hambre y hay un
+  arbusto de frutas o cultivo con su comida a menos de 10 m, lo cosechan
+  solos y se comen lo que cae. Solo cosechan cuando tienen hambre.
+- Consumo: ciervo/neck comen igual que el chancho (1 item cada 10 min;
+  ajustable con FedDurationSeconds si algun dia quieren cambiarlo).
+- Todo configurable en fer.valheim.tameablecreatures.cfg,
+  secciones [Cria] y [Cuidado].
+
+BuildTweaks.dll  (nuevo, opcional)  COPIAR en BepInEx\plugins
+- Las piezas de la pestania "Building" del martillo no requieren mesa de
+  trabajo (solo esa pestania). Efecto local de cada cliente.
+
+El server de dserver ya tiene ambos (activos tras su proximo reinicio).
+
