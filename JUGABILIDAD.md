@@ -48,9 +48,12 @@ Funcionan **igual que domesticar un chancho**:
   **primera fruta**; de ahí en más el respawn de fruta es el normal del juego (~5 h).
 
   **Hongos** (hongo → hongo): crecen igual que los arbustos (30% → 50% → 100% en 3
-  noches) y además, al madurar, **se multiplican solos**: +1 hongo (60%) o +2 (40%),
-  hasta un máximo de **7 hongos por manchón** (radio 4 m). Los nuevos también nacen
-  chiquitos y siguen el ciclo — una colonia que se expande hasta su tope natural.
+  noches) — mientras crecen se ven como **honguitos blancos** chiquitos, no cosechables.
+  Al madurar recuperan su color rojo, se pueden cosechar, y además **se multiplican
+  solos**: +1 hongo (60%) o +2 (40%), hasta un máximo de **7 hongos por manchón**
+  (radio 4 m). Los nuevos también nacen chiquitos y siguen el ciclo — una colonia que
+  se expande hasta su tope natural. Cada hongo cosechado rebrota en el mismo lugar
+  (~4 h), como los silvestres.
 
   **Verduras** (zanahoria/nabo/cebolla → plantín): rumbo 100% vanilla — el plantín
   crece ~75 min, se cosecha una vez y da 1 verdura.

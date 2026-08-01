@@ -45,6 +45,7 @@ Resumen — detalle completo en [CHANGELOG.md](CHANGELOG.md):
 
 | Versión | Cambios |
 |---|---|
+| 0.8.2 | Fix: hongos en crecimiento eran invisibles — ahora se ven como honguitos blancos no cosechables |
 | 0.8.1 | Fix: los ciervos comían el stack completo de un saque (NRE tragada dejaba el target de comida trabado) |
 | 0.8.0 | Siembra por etapas: arbustos/hongos nacen al 30% sin fruto y crecen en 3 noches; hongos se multiplican (tope 7 en 4 m) |
 | 0.7.1 | Tope de densidad de siembra (≥10 plantas en 4 m = la semilla se pierde) — corta la plaga exponencial |

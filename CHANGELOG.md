@@ -4,6 +4,10 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.8.2 — 2026-08-01 · Fix: hongos en crecimiento visibles (blancos)
+- El estado "sin fruto" usa el mecanismo vanilla de "cosechado"; en el arbusto eso oculta solo las frutas, pero en el hongo oculta **el modelo entero** → el hongo sembrado era invisible durante los 90 min de crecimiento y aparecía de golpe.
+- Fix: mientras crece se fuerza visible el modelo (`m_hideWhenPicked` activo; sigue sin poder cosecharse porque `m_picked` bloquea la interacción) y se ve como un **honguito blanco** (tinte hacia blanco 85%, pedido de Maxi) al 30%/50% de tamaño. Los arbustos conservan su tinte verdoso.
+
 ### v0.8.1 — 2026-08-01 · Fix: los ciervos vaciaban el stack de comida
 - **Causa raíz (heredada de la 0.4.0)**: el ciervo es el único comedor no-Humanoid del juego; la línea vanilla `humanoid.m_consumeItemEffects.Create(...)` lanza NullReference justo después de comer y **antes** de limpiar `m_consumeTarget`. El Finalizer de la 0.4.0 tragaba la excepción sin limpiar: el objetivo quedaba trabado y, como esa rama no chequea hambre, el ciervo mordía el stack completo (5 zanahorias juntas = 5 comidas seguidas, con 5 digestiones encadenadas — parte de la "máquina de caca").
 - **Fix**: al tragar la excepción se limpia `m_consumeTarget`. El ciervo come exactamente **1 ítem por ciclo de hambre**, como el chancho. Neck/chancho/lobo nunca tuvieron el problema (son Humanoid).

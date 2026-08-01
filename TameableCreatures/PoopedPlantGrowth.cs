@@ -60,6 +60,8 @@ public class PoopedPlantGrowth : MonoBehaviour
 
 	private float m_appliedPct = -1f;
 
+	private bool m_isMushroom;
+
 	private readonly List<TintEntry> m_tinted = new List<TintEntry>();
 
 	internal static int PlantedHash
@@ -79,6 +81,16 @@ public class PoopedPlantGrowth : MonoBehaviour
 		m_nview = GetComponent<ZNetView>();
 		m_pickable = GetComponent<Pickable>();
 		m_baseScale = base.transform.localScale;
+		string text = Utils.GetPrefabName(base.gameObject);
+		string[] array = TameableCreaturesPlugin.MushroomPrefabs.Value.Split(',');
+		foreach (string text2 in array)
+		{
+			if (text2.Trim() == text)
+			{
+				m_isMushroom = true;
+				break;
+			}
+		}
 		InvokeRepeating("GrowUpdate", Random.Range(2f, 5f), 5f);
 	}
 
@@ -108,6 +120,12 @@ public class PoopedPlantGrowth : MonoBehaviour
 			{
 				m_nview.GetZDO().Set(ZDOVars.s_pickedTime, ZNet.instance.GetTime().Ticks);
 				m_nview.InvokeRPC(ZNetView.Everybody, "RPC_SetPicked", true);
+			}
+			// v0.8.2: en el hongo, "cosechado" oculta el modelo entero — forzarlo
+			// visible mientras crece (no interactuable igual: m_picked lo bloquea).
+			if (m_pickable != null && m_pickable.m_hideWhenPicked != null && !m_pickable.m_hideWhenPicked.activeSelf)
+			{
+				m_pickable.m_hideWhenPicked.SetActive(value: true);
 			}
 		}
 		else
@@ -223,6 +241,7 @@ public class PoopedPlantGrowth : MonoBehaviour
 
 	private void CaptureTints()
 	{
+		// arbustos: tinte verdoso (multiplicativo); hongos: blancos (v0.8.2)
 		Color color = new Color(0.72f, 1f, 0.68f);
 		Renderer[] componentsInChildren = GetComponentsInChildren<Renderer>(includeInactive: true);
 		foreach (Renderer renderer in componentsInChildren)
@@ -237,7 +256,7 @@ public class PoopedPlantGrowth : MonoBehaviour
 						Mat = material,
 						Col = material.color
 					});
-					material.color = material.color * color;
+					material.color = (m_isMushroom ? Color.Lerp(material.color, Color.white, 0.85f) : (material.color * color));
 				}
 			}
 		}
