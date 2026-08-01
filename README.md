@@ -45,6 +45,7 @@ Resumen — detalle completo en [CHANGELOG.md](CHANGELOG.md):
 
 | Versión | Cambios |
 |---|---|
+| 0.7.1 | Tope de densidad de siembra (≥10 plantas en 4 m = la semilla se pierde) — corta la plaga exponencial |
 | 0.7.0 | Siembra por caca: al comer, digestión 1–3 min y 1–3 semillas que plantan en suelo cultivado (`[Siembra]`) |
 | 0.6.0 | Regeneración fuera de combate + forrajeo de arbustos/cultivos + config `FedDurationSeconds` (default: igual que el chancho) |
 | 0.5.0 | Fix voces (no más sonidos de chancho en ciervo/neck) + crías bebé pastel + BuildTweaks |

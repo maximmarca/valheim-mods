@@ -98,7 +98,7 @@ public class SeedPooper : MonoBehaviour
 					vector2.y = height;
 				}
 				Heightmap heightmap = Heightmap.FindHeightmap(vector2);
-				if (heightmap == null || !heightmap.IsCultivated(vector2) || SpotOccupied(vector2))
+				if (heightmap == null || !heightmap.IsCultivated(vector2) || SpotOccupied(vector2) || TooCrowded(vector2))
 				{
 					continue;
 				}
@@ -125,6 +125,31 @@ public class SeedPooper : MonoBehaviour
 		foreach (Collider collider in array)
 		{
 			if (collider.GetComponentInParent<Plant>() != null || collider.GetComponentInParent<Pickable>() != null)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// v0.7.1: tope de densidad — sin esto, cada comida planta 1-3 semillas
+	// (factor de reproducción ~2) y el corral se vuelve una plaga exponencial.
+	// Con el tope, la vegetación llega al equilibrio y la siembra se frena sola.
+	private static bool TooCrowded(Vector3 pos)
+	{
+		int max = TameableCreaturesPlugin.PoopMaxPlantsNearby.Value;
+		if (max <= 0)
+		{
+			return false;
+		}
+		HashSet<GameObject> seen = new HashSet<GameObject>();
+		Collider[] array = Physics.OverlapSphere(pos + Vector3.up * 0.2f, TameableCreaturesPlugin.PoopDensityRadius.Value);
+		foreach (Collider collider in array)
+		{
+			Plant plant = collider.GetComponentInParent<Plant>();
+			Pickable pickable = collider.GetComponentInParent<Pickable>();
+			GameObject go = plant != null ? plant.gameObject : (pickable != null ? pickable.gameObject : null);
+			if (go != null && seen.Add(go) && seen.Count >= max)
 			{
 				return true;
 			}

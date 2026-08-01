@@ -52,6 +52,7 @@ Funcionan **igual que domesticar un chancho**:
   | Cebolla | Plantín de cebolla |
 
 - No planta encima de otra planta (respeta 0,4 m de espacio).
+- **Tope de densidad** *(v0.7.1)*: si en 4 m alrededor del punto ya hay 10 plantas/arbustos, la semilla se pierde. Así el corral llega a un equilibrio natural en vez de volverse una plaga, y no te alfombran la huerta.
 
 ### El corral autosustentable (combinando todo)
 

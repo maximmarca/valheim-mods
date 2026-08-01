@@ -4,6 +4,11 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.7.1 — 2026-08-01 · Tope de densidad de siembra
+- **Fix de balance de la 0.7.0**: cada comida plantaba 1–3 semillas (factor de reproducción ~2 por ítem comido) → crecimiento **exponencial** de plantas; verificado en juego: cadena de ciervos comiendo zanahorias y replantándolas sin freno (32 siembras en una sesión).
+- **Tope de densidad**: antes de plantar, cada semilla cuenta las plantas/arbustos/pickables en un radio de `PoopDensityRadius` (4 m); si ya hay `PoopMaxPlantsNearby` (10) o más, la semilla se pierde. El corral llega a un equilibrio y la siembra se frena sola. También evita que alfombren las plantaciones del jugador.
+- Config nueva en `[Siembra]`: `PoopMaxPlantsNearby` (10; 0 = sin tope), `PoopDensityRadius` (4 m).
+
 ### v0.7.0 — 2026-08-01 · Siembra por caca
 - **Nuevo `SeedPooper`** (en todos los animales con `Tameable`): al comer un ítem del mapa `PoopMap`, digestión aleatoria de 60–180 s y después "caca" de 1–3 semillas dispersas en un radio de 1,5 m.
 - Cada semilla que cae sobre **suelo cultivado** (chequeo `Heightmap.IsCultivated`, el mismo que usan los cultivos del juego) instancia el prefab mapeado con el efecto vanilla de plantado. Las que caen en suelo sin cultivar se pierden.

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using BepInEx;
@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.7.0")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.7.1")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.7.0";
+	public const string PluginVersion = "0.7.1";
 
 	internal static ManualLogSource Log;
 
@@ -78,6 +78,10 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 
 	internal static ConfigEntry<float> PoopScatterRadius;
 
+	internal static ConfigEntry<int> PoopMaxPlantsNearby;
+
+	internal static ConfigEntry<float> PoopDensityRadius;
+
 	private void Awake()
 	{
 		Log = base.Logger;
@@ -110,8 +114,10 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		PoopSeedsMin = base.Config.Bind("Siembra", "PoopSeedsMin", 1, new ConfigDescription("Mínimo de semillas por caca.", new AcceptableValueRange<int>(0, 10)));
 		PoopSeedsMax = base.Config.Bind("Siembra", "PoopSeedsMax", 3, new ConfigDescription("Máximo de semillas por caca.", new AcceptableValueRange<int>(1, 10)));
 		PoopScatterRadius = base.Config.Bind("Siembra", "PoopScatterRadius", 1.5f, new ConfigDescription("Radio en metros en el que se dispersan las semillas alrededor del animal.", new AcceptableValueRange<float>(0.5f, 5f)));
+		PoopMaxPlantsNearby = base.Config.Bind("Siembra", "PoopMaxPlantsNearby", 10, new ConfigDescription("Tope de densidad: si ya hay esta cantidad de plantas/arbustos en el radio PoopDensityRadius, la semilla se pierde. Evita la plaga exponencial. 0 = sin tope.", new AcceptableValueRange<int>(0, 100)));
+		PoopDensityRadius = base.Config.Bind("Siembra", "PoopDensityRadius", 4f, new ConfigDescription("Radio en metros del chequeo de densidad.", new AcceptableValueRange<float>(1f, 15f)));
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.7.0 cargado (voces propias + crías bebé pastel + regen + forrajeo + siembra por caca)");
+		Log.LogInfo("TameableCreatures 0.7.1 cargado (voces propias + crías bebé pastel + regen + forrajeo + siembra por caca con tope)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component
@@ -154,3 +160,4 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		};
 	}
 }
+
