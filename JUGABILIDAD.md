@@ -77,6 +77,12 @@ Funcionan **igual que domesticar un chancho**:
 - Combina con la cría: un animal que subió de estrellas peleando **hereda ese nivel a sus crías** — entrenar a la madre mejora la línea de sangre.
 - **Se ven** *(v0.10.0)*: de 3★ en adelante cada estrella agranda al bicho y le intensifica el tinte (siguiendo la progresión natural de su especie), y al apuntarlo se ven los íconos de estrella reales (3, 4 o 5 estrellitas). Aplica también a los enemigos salvajes de estrellas altas — ojo con el greydwarf gigante oscuro.
 
+## Baúl de basura
+
+- Se construye con el martillo, pestaña **Muebles** (misma madera que un cofre común; se ve oscuro y se llama "Baúl de basura").
+- Lo que metas adentro **desaparece a los ~4 segundos, sin vuelta atrás** — para vaciar inventario de porquerías sin tirarlas al piso.
+- Ojo: hasta que Fer actualice su mod, no lo coloques en zonas donde él juegue (su cliente no conoce la pieza y da error).
+
 ## Construcción (BuildTweaks)
 
 - Todo lo de la pestaña **Building** del martillo (muros, techos, vigas, escaleras… 108 piezas) se construye, repara y demuele **sin mesa de trabajo**, en cualquier lugar del mundo.
@@ -88,4 +94,5 @@ Funcionan **igual que domesticar un chancho**:
 - En Valheim, la IA de los animales la simula **el cliente del jugador más cercano**, no el server. Y los efectos de sonido son objetos de red: los escuchan todos.
 - Por eso, **un cliente desactualizado contamina la partida**: si alguien juega con una versión vieja del mod, los ciervos que él simula gruñen como chanchos y sus bebés se ven adultos — para todos o para él según el efecto.
 - Regla simple: **después de cada update, todos bajan el `dist/TameableCreatures.dll` del repo antes de jugar**. El server lo actualiza Maxi.
+
 

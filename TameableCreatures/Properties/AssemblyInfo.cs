@@ -2,11 +2,12 @@
 
 [assembly: AssemblyCompany("TameableCreatures")]
 [assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyFileVersion("0.11.2.0")]
-[assembly: AssemblyInformationalVersion("0.11.2")]
+[assembly: AssemblyFileVersion("0.12.0.0")]
+[assembly: AssemblyInformationalVersion("0.12.0")]
 [assembly: AssemblyProduct("TameableCreatures")]
 [assembly: AssemblyTitle("TameableCreatures")]
-[assembly: AssemblyVersion("0.11.2.0")]
+[assembly: AssemblyVersion("0.12.0.0")]
+
 
 
 

@@ -1,4 +1,4 @@
-# valheim-mods — MaxiFer
+﻿# valheim-mods — MaxiFer
 
 Mods BepInEx del server **MaxiFer Valheim** (dserver, `maxi-ksp.duckdns.org:2456`).
 Mantenido por Maxi + Claude; código original de TameableCreatures por Fer.
@@ -57,3 +57,4 @@ Resumen — detalle completo en [CHANGELOG.md](CHANGELOG.md):
 | 0.6.0 | Regeneración fuera de combate + forrajeo de arbustos/cultivos + config `FedDurationSeconds` (default: igual que el chancho) |
 | 0.5.0 | Fix voces (no más sonidos de chancho en ciervo/neck) + crías bebé pastel + BuildTweaks |
 | 0.4.0 | Versión original de Fer (base de este repo, reconstruida por decompilación) |
+
