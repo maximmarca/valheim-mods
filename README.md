@@ -3,6 +3,9 @@
 Mods BepInEx del server **MaxiFer Valheim** (dserver, `maxi-ksp.duckdns.org:2456`).
 Mantenido por Maxi + Claude; código original de TameableCreatures por Fer.
 
+📖 **[JUGABILIDAD.md](JUGABILIDAD.md)** — cómo se juega con cada modificación, en detalle.
+📋 **[CHANGELOG.md](CHANGELOG.md)** — registro completo de cambios por versión.
+
 ## Mods
 
 ### TameableCreatures (v0.6.0)
@@ -37,6 +40,8 @@ dotnet build BuildTweaks/BuildTweaks.csproj -c Release -p:ValheimDir="C:\ruta\a\
 `ValheimDir` debe apuntar a una instalación de Valheim con BepInEx (usa sus DLLs como referencias). Default: `E:\Steam\steamapps\common\Valheim`.
 
 ## Changelog
+
+Resumen — detalle completo en [CHANGELOG.md](CHANGELOG.md):
 
 | Versión | Cambios |
 |---|---|
