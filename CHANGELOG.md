@@ -4,6 +4,11 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.10.0 — 2026-08-02 · Visuales para 3–5 estrellas
+- Vanilla define aspecto (escala/tinte/objetos extra) solo para 1★–2★ y el HUD solo tiene íconos para esas dos: un 3★+ se veía como criatura común y sin estrellas — poder invisible.
+- **Aspecto**: se extrapola la progresión visual de cada especie (`LevelEffects`): cada estrella extra es más grande (tope 2× el tamaño de 2★) y de tinte más marcado; el objeto extra de 2★ (los cuernos del ciervo) se conserva de ahí en adelante. Config `StarVisualsMaxStars` (5).
+- **HUD**: para 3★+ se agrega "★N" al nombre de la criatura al apuntarla (1★–2★ conservan sus íconos vanilla).
+
 ### v0.9.0 — 2026-08-02 · Estrellas por combate
 - Los animales domesticados pueden **subir una estrella peleando**: **2%** de probabilidad al rematar a un enemigo (`KillStarChance`) y **1%** por asistencia (`AssistStarChance`) — haber dañado al enemigo en los 60 s previos a su muerte (`AssistWindowSeconds`). Tope 5★. Los jugadores y los enemigos entre sí no cuentan.
 - Implementación: postfix en `Character.ApplyDamage` (registro de asistentes domesticados por víctima) + `Character.OnDeath` (el `m_lastHit.GetAttacker()` es el que remata; se tiran los dados y se limpia el registro). Config nueva `[Combate]`.

@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.9.0")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.10.0")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.9.0";
+	public const string PluginVersion = "0.10.0";
 
 	internal static ManualLogSource Log;
 
@@ -104,6 +104,8 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 
 	internal static ConfigEntry<float> AssistWindowSeconds;
 
+	internal static ConfigEntry<int> StarVisualsMaxStars;
+
 	private void Awake()
 	{
 		Log = base.Logger;
@@ -149,8 +151,9 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		KillStarChance = base.Config.Bind("Combate", "KillStarChance", 0.02f, new ConfigDescription("Probabilidad de que un domesticado suba una estrella al rematar a un enemigo.", new AcceptableValueRange<float>(0f, 1f)));
 		AssistStarChance = base.Config.Bind("Combate", "AssistStarChance", 0.01f, new ConfigDescription("Probabilidad de subir una estrella por asistir en la muerte (haberlo dañado en la ventana previa).", new AcceptableValueRange<float>(0f, 1f)));
 		AssistWindowSeconds = base.Config.Bind("Combate", "AssistWindowSeconds", 60f, new ConfigDescription("Segundos previos a la muerte en los que un golpe cuenta como asistencia.", new AcceptableValueRange<float>(5f, 300f)));
+		StarVisualsMaxStars = base.Config.Bind("Combate", "StarVisualsMaxStars", 5, new ConfigDescription("Hasta cuántas estrellas extender los visuales (tamaño/tinte) extrapolando la progresión vanilla de 1-2 estrellas.", new AcceptableValueRange<int>(2, 10)));
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.9.0 cargado (voces + bebés + regen + forrajeo + siembra por etapas + estrellas por combate)");
+		Log.LogInfo("TameableCreatures 0.10.0 cargado (todo lo anterior + visuales 3-5 estrellas)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component
@@ -193,6 +196,8 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		};
 	}
 }
+
+
 
 
 

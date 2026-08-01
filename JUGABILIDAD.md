@@ -74,6 +74,7 @@ Funcionan **igual que domesticar un chancho**:
 - Un animal domesticado que **remata** a un enemigo tiene **2%** de subir una estrella en el acto; los que **asistieron** (le pegaron en el último minuto) tienen **1%** cada uno.
 - Tope: 5 estrellas. Vale para cualquier domesticado — lobos de guerra, pero también un chancho valiente o tus ciervos.
 - Combina con la cría: un animal que subió de estrellas peleando **hereda ese nivel a sus crías** — entrenar a la madre mejora la línea de sangre.
+- **Se ven** *(v0.10.0)*: de 3★ en adelante cada estrella agranda al bicho y le intensifica el tinte (siguiendo la progresión natural de su especie), y al apuntarlo el nombre muestra "★3/★4/★5". Aplica también a los enemigos salvajes de estrellas altas — ojo con el greydwarf gigante oscuro.
 
 ## Construcción (BuildTweaks)
 

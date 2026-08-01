@@ -45,6 +45,7 @@ Resumen — detalle completo en [CHANGELOG.md](CHANGELOG.md):
 
 | Versión | Cambios |
 |---|---|
+| 0.10.0 | Visuales 3★–5★: más grandes y de tinte más intenso + "★N" en el HUD (antes eran invisibles) |
 | 0.9.0 | Estrellas por combate: 2% al matar / 1% por asistir, tope 5★ (`[Combate]`) |
 | 0.8.3 | Blindaje: los animales abandonan ítems fantasma (desync) en vez de morderlos eternamente |
 | 0.8.2 | Fix: hongos en crecimiento eran invisibles — ahora se ven como honguitos blancos no cosechables |
