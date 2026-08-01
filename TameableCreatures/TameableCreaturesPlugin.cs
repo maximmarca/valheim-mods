@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.8.0")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.8.1")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.8.0";
+	public const string PluginVersion = "0.8.1";
 
 	internal static ManualLogSource Log;
 
@@ -141,7 +141,7 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		MushroomMaxInPatch = base.Config.Bind("Siembra", "MushroomMaxInPatch", 7, new ConfigDescription("Tope de hongos del mismo tipo en el manchón (radio MushroomPatchRadius).", new AcceptableValueRange<int>(1, 50)));
 		MushroomPatchRadius = base.Config.Bind("Siembra", "MushroomPatchRadius", 4f, new ConfigDescription("Radio en metros del manchón de hongos.", new AcceptableValueRange<float>(1f, 15f)));
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.8.0 cargado (voces + bebés + regen + forrajeo + siembra por etapas)");
+		Log.LogInfo("TameableCreatures 0.8.1 cargado (voces + bebés + regen + forrajeo + siembra por etapas)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component
@@ -184,5 +184,6 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		};
 	}
 }
+
 
 

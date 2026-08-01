@@ -4,6 +4,10 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.8.1 — 2026-08-01 · Fix: los ciervos vaciaban el stack de comida
+- **Causa raíz (heredada de la 0.4.0)**: el ciervo es el único comedor no-Humanoid del juego; la línea vanilla `humanoid.m_consumeItemEffects.Create(...)` lanza NullReference justo después de comer y **antes** de limpiar `m_consumeTarget`. El Finalizer de la 0.4.0 tragaba la excepción sin limpiar: el objetivo quedaba trabado y, como esa rama no chequea hambre, el ciervo mordía el stack completo (5 zanahorias juntas = 5 comidas seguidas, con 5 digestiones encadenadas — parte de la "máquina de caca").
+- **Fix**: al tragar la excepción se limpia `m_consumeTarget`. El ciervo come exactamente **1 ítem por ciclo de hambre**, como el chancho. Neck/chancho/lobo nunca tuvieron el problema (son Humanoid).
+
 ### v0.8.0 — 2026-08-01 · Siembra por etapas (3 grupos)
 Rediseño de la siembra por caca en tres grupos (spec de Maxi):
 - **Grupo 1 — Arbustos (frambuesa, arándano)**: la semilla ya no planta un arbusto completo. Nace al **30% de tamaño, con tinte verdoso y sin fruto**, pasa al **50%** y al **100%** en un total de `StagedGrowSeconds` = **5400 s (3 noches de juego, ~90 min reales; mitad en cada etapa)**. Al madurar recupera el color, aparece la **primera fruta** y sigue el ciclo vanilla de respawn (intacto, ~5 h).
