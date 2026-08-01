@@ -69,12 +69,43 @@ internal static class Patch_Tameable_Awake
 	}
 }
 
+// v0.8.3: los ítems "fantasma" (ZDO con dueño de red que no responde) no se
+// pueden comer ni levantar; los animales quedaban imantados mordiendo en vano.
+// Si el objetivo de comida no se consume en ~30 s estando al lado, se lo marca
+// fantasma y el buscador lo ignora 2 minutos.
+[HarmonyPatch(typeof(MonsterAI), "FindClosestConsumableItem")]
+internal static class Patch_MonsterAI_FindClosestConsumableItem
+{
+	private static void Postfix(ref ItemDrop __result)
+	{
+		if (__result == null)
+		{
+			return;
+		}
+		if (TamedForager.GhostItems.TryGetValue(__result, out var value))
+		{
+			if (Time.time - value < 120f)
+			{
+				__result = null;
+			}
+			else
+			{
+				TamedForager.GhostItems.Remove(__result);
+			}
+		}
+	}
+}
+
 // v0.6.0: los domesticados con hambre "cosechan" el arbusto/cultivo más cercano
 // cuyo fruto esté en su lista de comida (RPC_Pick sin jugador). Los ítems caen
 // al piso y la IA vanilla de comer hace el resto (comer, curarse, criar).
 public class TamedForager : MonoBehaviour
 {
 	internal static readonly List<Pickable> Pickables = new List<Pickable>();
+
+	internal static readonly Dictionary<ItemDrop, float> GhostItems = new Dictionary<ItemDrop, float>();
+
+	private static readonly AccessTools.FieldRef<MonsterAI, ItemDrop> s_consumeTarget = AccessTools.FieldRefAccess<MonsterAI, ItemDrop>("m_consumeTarget");
 
 	private ZNetView m_nview;
 
@@ -83,6 +114,10 @@ public class TamedForager : MonoBehaviour
 	private MonsterAI m_monsterAI;
 
 	private Tameable m_tameable;
+
+	private ItemDrop m_lastTarget;
+
+	private int m_stuckTicks;
 
 	private void Start()
 	{
@@ -98,7 +133,12 @@ public class TamedForager : MonoBehaviour
 
 	private void ForageUpdate()
 	{
-		if (!TameableCreaturesPlugin.ForageEnabled.Value || m_nview == null || !m_nview.IsValid() || !m_nview.IsOwner())
+		if (m_nview == null || !m_nview.IsValid() || !m_nview.IsOwner())
+		{
+			return;
+		}
+		CheckStuckTarget();
+		if (!TameableCreaturesPlugin.ForageEnabled.Value)
 		{
 			return;
 		}
@@ -140,6 +180,36 @@ public class TamedForager : MonoBehaviour
 		{
 			znetView.InvokeRPC("RPC_Pick", 0);
 		}
+	}
+
+	// v0.8.3: si lleva ~30 s al lado de su comida sin poder consumirla
+	// (dueño de red que no responde), abandonarla y marcarla fantasma.
+	private void CheckStuckTarget()
+	{
+		if (m_monsterAI == null)
+		{
+			return;
+		}
+		ItemDrop itemDrop = s_consumeTarget(m_monsterAI);
+		if (itemDrop != null && itemDrop == m_lastTarget)
+		{
+			if (Vector3.Distance(itemDrop.transform.position, base.transform.position) < m_monsterAI.m_consumeRange + 1.5f)
+			{
+				m_stuckTicks++;
+				if (m_stuckTicks >= 3)
+				{
+					GhostItems[itemDrop] = Time.time;
+					s_consumeTarget(m_monsterAI) = null;
+					m_stuckTicks = 0;
+					TameableCreaturesPlugin.Log.LogWarning(Utils.GetPrefabName(base.gameObject) + " no pudo comer un ítem fantasma; lo ignora 2 min");
+				}
+			}
+		}
+		else
+		{
+			m_stuckTicks = 0;
+		}
+		m_lastTarget = itemDrop;
 	}
 
 	private bool IsFoodForMe(Pickable pickable)

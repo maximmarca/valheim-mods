@@ -45,6 +45,8 @@ Resumen — detalle completo en [CHANGELOG.md](CHANGELOG.md):
 
 | Versión | Cambios |
 |---|---|
+| 0.9.0 | Estrellas por combate: 2% al matar / 1% por asistir, tope 5★ (`[Combate]`) |
+| 0.8.3 | Blindaje: los animales abandonan ítems fantasma (desync) en vez de morderlos eternamente |
 | 0.8.2 | Fix: hongos en crecimiento eran invisibles — ahora se ven como honguitos blancos no cosechables |
 | 0.8.1 | Fix: los ciervos comían el stack completo de un saque (NRE tragada dejaba el target de comida trabado) |
 | 0.8.0 | Siembra por etapas: arbustos/hongos nacen al 30% sin fruto y crecen en 3 noches; hongos se multiplican (tope 7 en 4 m) |

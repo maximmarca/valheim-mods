@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.8.2")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.9.0")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.8.2";
+	public const string PluginVersion = "0.9.0";
 
 	internal static ManualLogSource Log;
 
@@ -98,6 +98,12 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 
 	internal static ConfigEntry<float> MushroomPatchRadius;
 
+	internal static ConfigEntry<float> KillStarChance;
+
+	internal static ConfigEntry<float> AssistStarChance;
+
+	internal static ConfigEntry<float> AssistWindowSeconds;
+
 	private void Awake()
 	{
 		Log = base.Logger;
@@ -140,8 +146,11 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		MushroomChanceOne = base.Config.Bind("Siembra", "MushroomChanceOne", 0.6f, new ConfigDescription("Probabilidad de multiplicarse por 1 (el resto de las veces, por 2).", new AcceptableValueRange<float>(0f, 1f)));
 		MushroomMaxInPatch = base.Config.Bind("Siembra", "MushroomMaxInPatch", 7, new ConfigDescription("Tope de hongos del mismo tipo en el manchón (radio MushroomPatchRadius).", new AcceptableValueRange<int>(1, 50)));
 		MushroomPatchRadius = base.Config.Bind("Siembra", "MushroomPatchRadius", 4f, new ConfigDescription("Radio en metros del manchón de hongos.", new AcceptableValueRange<float>(1f, 15f)));
+		KillStarChance = base.Config.Bind("Combate", "KillStarChance", 0.02f, new ConfigDescription("Probabilidad de que un domesticado suba una estrella al rematar a un enemigo.", new AcceptableValueRange<float>(0f, 1f)));
+		AssistStarChance = base.Config.Bind("Combate", "AssistStarChance", 0.01f, new ConfigDescription("Probabilidad de subir una estrella por asistir en la muerte (haberlo dañado en la ventana previa).", new AcceptableValueRange<float>(0f, 1f)));
+		AssistWindowSeconds = base.Config.Bind("Combate", "AssistWindowSeconds", 60f, new ConfigDescription("Segundos previos a la muerte en los que un golpe cuenta como asistencia.", new AcceptableValueRange<float>(5f, 300f)));
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.8.2 cargado (voces + bebés + regen + forrajeo + siembra por etapas)");
+		Log.LogInfo("TameableCreatures 0.9.0 cargado (voces + bebés + regen + forrajeo + siembra por etapas + estrellas por combate)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component
@@ -184,6 +193,8 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		};
 	}
 }
+
+
 
 
 

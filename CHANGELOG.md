@@ -4,6 +4,14 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.9.0 — 2026-08-02 · Estrellas por combate
+- Los animales domesticados pueden **subir una estrella peleando**: **2%** de probabilidad al rematar a un enemigo (`KillStarChance`) y **1%** por asistencia (`AssistStarChance`) — haber dañado al enemigo en los 60 s previos a su muerte (`AssistWindowSeconds`). Tope 5★. Los jugadores y los enemigos entre sí no cuentan.
+- Implementación: postfix en `Character.ApplyDamage` (registro de asistentes domesticados por víctima) + `Character.OnDeath` (el `m_lastHit.GetAttacker()` es el que remata; se tiran los dados y se limpia el registro). Config nueva `[Combate]`.
+
+### v0.8.3 — 2026-08-02 · Blindaje contra ítems fantasma
+- Un ítem cuyo dueño de red no responde (desync, típico con clientes en versiones distintas) no se puede comer ni levantar; los animales quedaban imantados mordiéndolo eternamente. Diagnóstico: `RemoveOne()` → `CanPickup()` exige ser dueño; `RequestOwn()` nunca se resuelve si el dueño registrado está colgado.
+- Fix: si un animal pasa ~30 s al lado de su comida objetivo sin lograr consumirla, la abandona y la marca fantasma; el buscador de comida la ignora 2 minutos (reintenta después por si la propiedad se liberó). El ítem fantasma en sí se limpia al reiniciar el server o relogueando.
+
 ### v0.8.2 — 2026-08-01 · Fix: hongos en crecimiento visibles (blancos)
 - El estado "sin fruto" usa el mecanismo vanilla de "cosechado"; en el arbusto eso oculta solo las frutas, pero en el hongo oculta **el modelo entero** → el hongo sembrado era invisible durante los 90 min de crecimiento y aparecía de golpe.
 - Fix: mientras crece se fuerza visible el modelo (`m_hideWhenPicked` activo; sigue sin poder cosecharse porque `m_picked` bloquea la interacción) y se ve como un **honguito blanco** (tinte hacia blanco 85%, pedido de Maxi) al 30%/50% de tamaño. Los arbustos conservan su tinte verdoso.

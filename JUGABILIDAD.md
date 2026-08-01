@@ -69,6 +69,12 @@ Funcionan **igual que domesticar un chancho**:
 3. Meté chanchos/ciervos/necks domesticados.
 4. Ciclo: tienen hambre → cosechan el arbusto → comen → hacen caca semillas → el suelo cultivado las germina → más arbustos → más comida → crían solos y se curan solos.
 
+## Estrellas por combate
+
+- Un animal domesticado que **remata** a un enemigo tiene **2%** de subir una estrella en el acto; los que **asistieron** (le pegaron en el último minuto) tienen **1%** cada uno.
+- Tope: 5 estrellas. Vale para cualquier domesticado — lobos de guerra, pero también un chancho valiente o tus ciervos.
+- Combina con la cría: un animal que subió de estrellas peleando **hereda ese nivel a sus crías** — entrenar a la madre mejora la línea de sangre.
+
 ## Construcción (BuildTweaks)
 
 - Todo lo de la pestaña **Building** del martillo (muros, techos, vigas, escaleras… 108 piezas) se construye, repara y demuele **sin mesa de trabajo**, en cualquier lugar del mundo.
