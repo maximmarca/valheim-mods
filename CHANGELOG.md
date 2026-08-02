@@ -4,6 +4,10 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.18.1 — 2026-08-02 · Edad visible + ítems en base expiran (pedidos de Fer)
+- **La edad se ve al apuntar** al animal domesticado: "Edad: 12,3/30 días", con la marca "(anciano)" cuando entra en la última etapa.
+- **Los ítems tirados dentro de una base expiran a los 5 días de juego**, haya o no jugadores cerca (vanilla: dentro de zona de banco NO expiraban nunca y se acumulaban sin límite con las granjas 24/7). Fuera de base sigue vanilla (3 días, frenado por cercanía). Config `BaseItemExpiryDays` (0 = vanilla).
+
 ### v0.18.0 — 2026-08-02 · Vejez de los domesticados + guerra viva
 - **Muerte por edad (domesticados)**: cada animal marca su nacimiento (las crías heredan el real). Vida default **30 días de juego** (+20%/★ — un 5★ vive el doble). Al **80%** entra en etapa **anciano**: tinte gris, **50% más lento** y **deja de criar**. Al 100% muere en paz: sin drops y con aviso "murió de viejo". Los animales existentes arrancan a envejecer desde la instalación. Config sección `[Vejez]`.
 - **Guerra viva A — nidos que renacen**: los nidos/spawners destruidos (greydwarf, pilas de huesos, campamentos) **reaparecen a los 7 días** de juego (config `NestRespawnDays`), si no hay jugadores a menos de 25 m. ⚠️ Usa un **marcador de red nuevo** (`tc_respawn_marker`): un cliente sin el mod verá "Missing prefab" — **todos deben actualizar**.

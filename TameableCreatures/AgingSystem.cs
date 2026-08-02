@@ -188,6 +188,41 @@ public class TamedAging : MonoBehaviour
 	}
 }
 
+// v0.18.1 (pregunta de Fer "¿dónde veo la edad?"): la edad aparece al apuntar
+// al animal domesticado, junto con su esperanza de vida y la marca de anciano.
+[HarmonyPatch(typeof(Tameable), "GetHoverText")]
+internal static class Patch_Tameable_GetHoverText_Age
+{
+	private static void Postfix(Tameable __instance, ref string __result)
+	{
+		if (!TameableCreaturesPlugin.AgingEnabled.Value || ZNet.instance == null)
+		{
+			return;
+		}
+		Character component = __instance.GetComponent<Character>();
+		ZNetView component2 = __instance.GetComponent<ZNetView>();
+		if (component == null || component2 == null || !component2.IsValid() || !component.IsTamed())
+		{
+			return;
+		}
+		float birth = component2.GetZDO().GetFloat(TamedAging.BirthHash, 0f);
+		if (birth <= 0f)
+		{
+			return;
+		}
+		int stars = Mathf.Max(0, component.GetLevel() - 1);
+		float day = TamedAging.DayLength();
+		float lifespan = TameableCreaturesPlugin.AgingLifespanDays.Value * day * (1f + (float)stars * TameableCreaturesPlugin.AgingStarBonusPct.Value / 100f);
+		if (lifespan <= 0f)
+		{
+			return;
+		}
+		float aged = (float)(ZNet.instance.GetTimeSeconds() - (double)birth);
+		bool old = aged / lifespan >= TameableCreaturesPlugin.AgingOldPct.Value / 100f;
+		__result += string.Format("\n<color=grey>Edad: {0:0.#}/{1:0.#} días{2}</color>", aged / day, lifespan / day, old ? " (anciano)" : "");
+	}
+}
+
 // Muerte por vejez sin drops: no deja carne/cuero — se fue en paz.
 [HarmonyPatch(typeof(CharacterDrop), "GenerateDropList")]
 internal static class Patch_CharacterDrop_GenerateDropList_Aging
