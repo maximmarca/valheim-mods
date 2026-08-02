@@ -4,6 +4,9 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.14.2 — 2026-08-02 · Fix: brillo "cámara térmica" en los 3★+
+- La emisión con intensidad alta pintaba el cuerpo entero fullbright amarillo (los materiales de criatura no tienen máscara de emisión). Brillo bajado a tenue (0.25, escala leve por estrella) y configurable: `StarGlowIntensity` (0 = sin brillo, queda solo la base oscura+saturada). Reportado por Maxi en juego.
+
 ### v0.14.1 — 2026-08-02 · Estallidos elementales en el impacto
 - Cada golpe de un 3★+ ahora **explota visiblemente** en el punto de impacto con el efecto vanilla de su elemento: fuego (`fx_DvergerMage_Fire_hit`), hielo (`vfx_frostarrow_hit`), rayo (`fx_lightningweapon_hit`). Configurable por `StarHitFx` (pares estrellas:prefab). Las víctimas además arden/se congelan por los estados del daño elemental.
 

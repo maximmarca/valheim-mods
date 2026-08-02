@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.14.1")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.14.2")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.14.1";
+	public const string PluginVersion = "0.14.2";
 
 	internal static ManualLogSource Log;
 
@@ -114,6 +114,8 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 
 	internal static ConfigEntry<string> StarHitFx;
 
+	internal static ConfigEntry<float> StarGlowIntensity;
+
 	internal static ConfigEntry<string> ExtraFood;
 
 	internal static ConfigEntry<bool> TrashChestEnabled;
@@ -173,8 +175,9 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		StarElementalPercent = base.Config.Bind("Combate", "StarElementalPercent", 0.3f, new ConfigDescription("Habilidades: fracción del daño físico del golpe que se suma como elemental según estrellas (3★ fuego/quemadura, 4★ escarcha/frena, 5★ rayo). 0 = apagado.", new AcceptableValueRange<float>(0f, 2f)));
 		StarFiveResistPercent = base.Config.Bind("Combate", "StarFiveResistPercent", 25f, new ConfigDescription("Resistencia física pasiva (%) de las criaturas 5★. 0 = apagado.", new AcceptableValueRange<float>(0f, 90f)));
 		StarHitFx = base.Config.Bind("Combate", "StarHitFx", "3:fx_DvergerMage_Fire_hit,4:vfx_frostarrow_hit,5:fx_lightningweapon_hit", "Efecto visual al impactar, por estrellas (pares estrellas:prefab separados por coma). Vacío = sin efecto.");
+		StarGlowIntensity = base.Config.Bind("Combate", "StarGlowIntensity", 0.25f, new ConfigDescription("Intensidad del brillo de color de los 3★+ (sin máscara de emisión, valores altos dejan el cuerpo entero fullbright tipo cámara térmica). 0 = sin brillo, solo base oscura+saturada.", new AcceptableValueRange<float>(0f, 3f)));
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.14.1 cargado (todo lo anterior + habilidades por estrellas)");
+		Log.LogInfo("TameableCreatures 0.14.2 cargado (todo lo anterior + habilidades por estrellas)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component
@@ -217,6 +220,7 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		};
 	}
 }
+
 
 
 

@@ -36,13 +36,17 @@ internal static class Patch_ZNetScene_Awake_StarVisuals
 			// v0.13.0: estética "oscuro + brillo" para 3★+ — base más oscura y
 			// saturada por estrella, con emisión de color creciente (fuego → rojo
 			// → violeta). El tamaño sigue extrapolando la progresión de la especie.
-			// paleta acorde a las habilidades: 3★ fuego, 4★ hielo, 5★ tormenta
+			// paleta acorde a las habilidades: 3★ fuego, 4★ hielo, 5★ tormenta.
+			// v0.14.2: la mayoría de los materiales de criaturas no tienen máscara
+			// de emisión — con intensidad alta el cuerpo entero queda fullbright
+			// (efecto "cámara térmica"). Brillo tenue y configurable.
 			Color[] array2 = new Color[3]
 			{
-				new Color(1f, 0.55f, 0.1f) * 1.6f,
-				new Color(0.3f, 0.8f, 1f) * 2.2f,
-				new Color(0.75f, 0.15f, 1f) * 2.8f
+				new Color(1f, 0.55f, 0.1f),
+				new Color(0.3f, 0.8f, 1f),
+				new Color(0.75f, 0.15f, 1f)
 			};
+			float glow = TameableCreaturesPlugin.StarGlowIntensity.Value;
 			for (int i = 4; i <= num; i++)
 			{
 				int num7 = i - 3;
@@ -52,8 +56,8 @@ internal static class Patch_ZNetScene_Awake_StarVisuals
 					m_hue = levelSetup2.m_hue,
 					m_saturation = Mathf.Clamp(levelSetup2.m_saturation + 0.15f * (float)num7, -1f, 1f),
 					m_value = Mathf.Clamp(levelSetup2.m_value - 0.22f * (float)num7, -1f, 1f),
-					m_setEmissiveColor = true,
-					m_emissiveColor = array2[Mathf.Min(num7 - 1, array2.Length - 1)] * (1f + 0.3f * (float)(num7 - array2.Length > 0 ? num7 - array2.Length : 0)),
+					m_setEmissiveColor = glow > 0f,
+					m_emissiveColor = array2[Mathf.Min(num7 - 1, array2.Length - 1)] * (glow * (1f + 0.4f * (float)(num7 - 1))),
 					m_enableObject = levelSetup2.m_enableObject
 				});
 			}
