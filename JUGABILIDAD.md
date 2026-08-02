@@ -71,6 +71,11 @@ Funcionan **igual que domesticar un chancho**:
 3. Meté chanchos/ciervos/necks domesticados.
 4. Ciclo: tienen hambre → cosechan el arbusto → comen → hacen caca semillas → el suelo cultivado las germina → más arbustos → más comida → crían solos y se curan solos.
 
+## El ciclo de la vida *(v0.18.0)*
+
+- Tus animales **envejecen**: viven ~30 días de juego (cada estrella suma +20% — cuidá a los 5★, viven el doble). Cerca del final se ponen **grises, lentos y dejan de criar**: es el aviso para asegurar descendencia. Después, se van en paz (sin drops). La cría constante ya no es opcional: es cómo sobrevive tu manada.
+- El mundo también vive: los **nidos y campamentos destruidos renacen** a la semana (si no acampás encima), y cuanto **más viejo el mundo, más estrellas** traen los bichos salvajes. Limpiar una zona ya no es para siempre — y el mundo se pone más bravo con los meses.
+
 ## Estrellas por combate
 
 - Un animal domesticado que **remata** a un enemigo tiene **2%** de subir una estrella en el acto; los que **asistieron** (le pegaron en el último minuto) tienen **1%** cada uno.

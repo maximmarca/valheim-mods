@@ -4,6 +4,11 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.18.0 — 2026-08-02 · Vejez de los domesticados + guerra viva
+- **Muerte por edad (domesticados)**: cada animal marca su nacimiento (las crías heredan el real). Vida default **30 días de juego** (+20%/★ — un 5★ vive el doble). Al **80%** entra en etapa **anciano**: tinte gris, **50% más lento** y **deja de criar**. Al 100% muere en paz: sin drops y con aviso "murió de viejo". Los animales existentes arrancan a envejecer desde la instalación. Config sección `[Vejez]`.
+- **Guerra viva A — nidos que renacen**: los nidos/spawners destruidos (greydwarf, pilas de huesos, campamentos) **reaparecen a los 7 días** de juego (config `NestRespawnDays`), si no hay jugadores a menos de 25 m. ⚠️ Usa un **marcador de red nuevo** (`tc_respawn_marker`): un cliente sin el mod verá "Missing prefab" — **todos deben actualizar**.
+- **Guerra viva B — presión creciente**: la chance de estrellas de los spawns **sube con la edad del mundo** (+0,3%/día relativo, tope +100%, techo total 60%): cuanto más viejo el save, más bravo el mundo. Config sección `[MundoVivo]`.
+
 ### v0.17.1 — 2026-08-02 · Fix: el cultivador no limpia + aura de domesticados más tenue
 - **El cultivador ya NO destruye hongos** (reportado por Maxi): cultivar es preparar el suelo donde se quiere sembrar. Solo limpian las operaciones de la azada (allanar, caminos, elevar). Config `HoeCleanExcludedOps` (default `cultivate,replant`).
 - **Aura de domesticados más tenue**: brillo propio `StarAuraBrightnessTamed` (0.75) separado del de los salvajes (`StarAuraBrightness`, 0.9). Si domesticás una criatura con aura, se regenera sola con el brillo nuevo.

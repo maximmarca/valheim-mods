@@ -171,7 +171,7 @@ internal static class StarClasses
 		return null;
 	}
 
-	private static SE_Stats MakeStats(string name, float ttl, float speed = 0f, float staminaRegen = 1f, float skillMod = 0f, float damageMod = 1f)
+	internal static SE_Stats MakeStats(string name, float ttl, float speed = 0f, float staminaRegen = 1f, float skillMod = 0f, float damageMod = 1f)
 	{
 		SE_Stats sE_Stats = ScriptableObject.CreateInstance<SE_Stats>();
 		sE_Stats.name = name;

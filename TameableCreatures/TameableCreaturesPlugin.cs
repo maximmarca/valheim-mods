@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.17.1")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.18.0")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.17.1";
+	public const string PluginVersion = "0.18.0";
 
 	internal static ManualLogSource Log;
 
@@ -142,6 +142,28 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 
 	internal static ConfigEntry<float> TrashDelaySeconds;
 
+	internal static ConfigEntry<bool> AgingEnabled;
+
+	internal static ConfigEntry<float> AgingLifespanDays;
+
+	internal static ConfigEntry<float> AgingStarBonusPct;
+
+	internal static ConfigEntry<float> AgingOldPct;
+
+	internal static ConfigEntry<float> AgingOldSpeedPct;
+
+	internal static ConfigEntry<bool> AgingNoDrops;
+
+	internal static ConfigEntry<bool> NestRespawnEnabled;
+
+	internal static ConfigEntry<float> NestRespawnDays;
+
+	internal static ConfigEntry<bool> PressureEnabled;
+
+	internal static ConfigEntry<float> PressurePerDayPct;
+
+	internal static ConfigEntry<float> PressureMaxPct;
+
 	private void Awake()
 	{
 		Log = base.Logger;
@@ -206,8 +228,19 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		StarAuraBrightness = base.Config.Bind("Combate", "StarAuraBrightness", 0.9f, new ConfigDescription("Brillo del color del aura de criaturas SALVAJES (1 = el original; 0.9 = 10% menos).", new AcceptableValueRange<float>(0.2f, 1.5f)));
 		StarAuraBrightnessTamed = base.Config.Bind("Combate", "StarAuraBrightnessTamed", 0.75f, new ConfigDescription("Brillo del aura de los DOMESTICADOS (más tenue para convivir con ellos sin encandilar).", new AcceptableValueRange<float>(0.2f, 1.5f)));
 		StarClassMap = base.Config.Bind("Combate", "StarClassMap", "Greyling:raiz,Greydwarf:raiz,Greydwarf_Elite:espinas,Greydwarf_Shaman:curacion,Skeleton:critico,Skeleton_Poison:veneno,Ghost:robovida,Troll:inamovible,Draugr:veneno,Draugr_Ranged:veneno,Draugr_Elite:grito,Blob:veneno,BlobElite:nausea,Leech:robovida,Wraith:robovida,Abomination:raiz,Surtling:nova,Wolf:escarcha,Fenring:desarme,Fenring_Cultist:fuego,Ulv:sangrado,Hatchling:escarcha,StoneGolem:pielhierro,Bat:robovida,Goblin:critico,GoblinBrute:inamovible,GoblinShaman:maldicion,Deathsquito:rayo,Lox:embestida,Seeker:sangrado,SeekerBrute:arpon,Tick:nausea,Gjall:nova,Serpent:empapar,Boar:embestida,Neck:esquiva,Deer:celeridad,Bjorn:embestida,Bear_undead:robovida", "Habilidad de clase por especie 3★+ (pares criatura:habilidad). Habilidades: fuego, escarcha, rayo, veneno, robovida, raiz, critico, esquiva, celeridad, espinas, pielhierro, inamovible, embestida, curacion, grito, escudo, nova, desarme, sangrado, arpon, nausea, empapar, maldicion. Especies sin entrada usan el sistema por tier (3★ fuego / 4★ escarcha / 5★ rayo).");
+		AgingEnabled = base.Config.Bind("Vejez", "AgingEnabled", defaultValue: true, "Los animales DOMESTICADOS envejecen y mueren de viejos. Los existentes arrancan a envejecer al instalar (vida completa por delante).");
+		AgingLifespanDays = base.Config.Bind("Vejez", "AgingLifespanDays", 30f, new ConfigDescription("Esperanza de vida en días de juego (con día de 20 min: 30 días = 10 h reales).", new AcceptableValueRange<float>(1f, 1000f)));
+		AgingStarBonusPct = base.Config.Bind("Vejez", "AgingStarBonusPct", 20f, new ConfigDescription("Vida extra por estrella, en % (20 = un 5★ vive el doble).", new AcceptableValueRange<float>(0f, 100f)));
+		AgingOldPct = base.Config.Bind("Vejez", "AgingOldPct", 80f, new ConfigDescription("A qué % de la vida entra en etapa 'anciano': tinte gris, más lento y deja de criar.", new AcceptableValueRange<float>(50f, 99f)));
+		AgingOldSpeedPct = base.Config.Bind("Vejez", "AgingOldSpeedPct", 50f, new ConfigDescription("Cuánto más lento es un anciano, en % (50 = a mitad de velocidad).", new AcceptableValueRange<float>(0f, 90f)));
+		AgingNoDrops = base.Config.Bind("Vejez", "AgingNoDrops", defaultValue: true, "La muerte por vejez no deja drops (se fue en paz).");
+		NestRespawnEnabled = base.Config.Bind("MundoVivo", "NestRespawnEnabled", defaultValue: true, "Los nidos/spawners destruidos renacen pasados NestRespawnDays días. Deja un marcador de red invisible: TODOS los clientes necesitan el mod (como con el baúl).");
+		NestRespawnDays = base.Config.Bind("MundoVivo", "NestRespawnDays", 7f, new ConfigDescription("Días de juego hasta que renace un nido destruido (renace solo sin jugadores a menos de 25 m).", new AcceptableValueRange<float>(1f, 100f)));
+		PressureEnabled = base.Config.Bind("MundoVivo", "PressureEnabled", defaultValue: true, "La chance de estrellas de los spawns crece con la edad del mundo: cuanto más viejo el save, más bravo.");
+		PressurePerDayPct = base.Config.Bind("MundoVivo", "PressurePerDayPct", 0.3f, new ConfigDescription("Cuánto sube la chance de estrella por día de mundo, en % relativo (0.3 => +30% al día 100).", new AcceptableValueRange<float>(0f, 5f)));
+		PressureMaxPct = base.Config.Bind("MundoVivo", "PressureMaxPct", 100f, new ConfigDescription("Tope del bonus de presión, en % relativo (100 = como mucho el doble de chance).", new AcceptableValueRange<float>(0f, 300f)));
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.17.1 cargado (fix: cultivador no limpia; aura de domesticados más tenue)");
+		Log.LogInfo("TameableCreatures 0.18.0 cargado (todo lo anterior + vejez de domesticados + guerra viva)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component
