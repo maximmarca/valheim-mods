@@ -4,6 +4,10 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.20.1 — 2026-08-02 · Barcos: boost y consumo POR SLOT (spec refinada de Fer)
+- Cada **stack de carbón en la baulera es un slot de motor**, con rendimiento decreciente: 1 slot **+50%**, 2 **+80%**, 3 **+105%**, 4 **+120%**, y **+10% por slot extra** (5→+130%, 6→+140%…). Config `CoalBonusMultiplier` escala la tabla.
+- El consumo es **1 carbón de CADA slot** por intervalo (remo 5 min, media vela 2 min, vela llena 30 s): a toda vela con 4 slots se queman 8 carbones por minuto — la velocidad se paga.
+
 ### v0.20.0 — 2026-08-02 · Barcos a carbón (spec de Fer)
 - Los barcos **con baulera** navegan **+50% más rápido si hay carbón adentro** (vela Y remo). Consumo según la velocidad del timón: remo 1 carbón/5 min, media vela 1/2 min, vela llena **1/30 s**. Sin carbón, velocidad normal. La balsa no tiene baulera: queda afuera.
 - El boost lo aplica quien simula la física del barco — server y todos los clientes deben tener el mod (ya lo tienen). Config sección `[Barcos]` (`CoalBoostFactor`, consumos por velocidad).

@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.20.0")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.20.1")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.20.0";
+	public const string PluginVersion = "0.20.1";
 
 	internal static ManualLogSource Log;
 
@@ -148,7 +148,7 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 
 	internal static ConfigEntry<bool> CoalBoostEnabled;
 
-	internal static ConfigEntry<float> CoalBoostFactor;
+	internal static ConfigEntry<float> CoalBonusMultiplier;
 
 	internal static ConfigEntry<float> CoalSecondsSlow;
 
@@ -246,7 +246,7 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		StarClassMap = base.Config.Bind("Combate", "StarClassMap", "Greyling:raiz,Greydwarf:raiz,Greydwarf_Elite:espinas,Greydwarf_Shaman:curacion,Skeleton:critico,Skeleton_Poison:veneno,Ghost:robovida,Troll:inamovible,Draugr:veneno,Draugr_Ranged:veneno,Draugr_Elite:grito,Blob:veneno,BlobElite:nausea,Leech:robovida,Wraith:robovida,Abomination:raiz,Surtling:nova,Wolf:escarcha,Fenring:desarme,Fenring_Cultist:fuego,Ulv:sangrado,Hatchling:escarcha,StoneGolem:pielhierro,Bat:robovida,Goblin:critico,GoblinBrute:inamovible,GoblinShaman:maldicion,Deathsquito:rayo,Lox:embestida,Seeker:sangrado,SeekerBrute:arpon,Tick:nausea,Gjall:nova,Serpent:empapar,Boar:embestida,Neck:esquiva,Deer:celeridad,Bjorn:embestida,Bear_undead:robovida", "Habilidad de clase por especie 3★+ (pares criatura:habilidad). Habilidades: fuego, escarcha, rayo, veneno, robovida, raiz, critico, esquiva, celeridad, espinas, pielhierro, inamovible, embestida, curacion, grito, escudo, nova, desarme, sangrado, arpon, nausea, empapar, maldicion. Especies sin entrada usan el sistema por tier (3★ fuego / 4★ escarcha / 5★ rayo).");
 		MobStatsEnabled = base.Config.Bind("General", "MobStatsEnabled", defaultValue: true, "Al apuntar a un mob muestra vida en números, daño estimado de su mejor ataque (con estrellas) y resistencias/debilidades. Jefes excluidos.");
 		CoalBoostEnabled = base.Config.Bind("Barcos", "CoalBoostEnabled", defaultValue: true, "Motor a carbón: los barcos con baulera navegan más rápido si tienen carbón adentro (spec de Fer).");
-		CoalBoostFactor = base.Config.Bind("Barcos", "CoalBoostFactor", 1.5f, new ConfigDescription("Multiplicador de velocidad con carbón (1.5 = +50%). Aplica a vela y remo.", new AcceptableValueRange<float>(1f, 3f)));
+		CoalBonusMultiplier = base.Config.Bind("Barcos", "CoalBonusMultiplier", 1f, new ConfigDescription("Escala de la tabla de bonus por slots (1 = spec de Fer: 1 slot +50%, 2 +80%, 3 +105%, 4 +120%, +10%/slot extra).", new AcceptableValueRange<float>(0.1f, 3f)));
 		CoalSecondsSlow = base.Config.Bind("Barcos", "CoalSecondsSlow", 300f, new ConfigDescription("Segundos por carbón a velocidad 1 (remo).", new AcceptableValueRange<float>(10f, 3600f)));
 		CoalSecondsHalf = base.Config.Bind("Barcos", "CoalSecondsHalf", 120f, new ConfigDescription("Segundos por carbón a velocidad 2 (media vela).", new AcceptableValueRange<float>(10f, 3600f)));
 		CoalSecondsFull = base.Config.Bind("Barcos", "CoalSecondsFull", 30f, new ConfigDescription("Segundos por carbón a velocidad 3 (vela llena).", new AcceptableValueRange<float>(5f, 3600f)));
@@ -264,7 +264,7 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		PressurePerDayPct = base.Config.Bind("MundoVivo", "PressurePerDayPct", 0.3f, new ConfigDescription("Cuánto sube la chance de estrella por día de mundo, en % relativo (0.3 => +30% al día 100).", new AcceptableValueRange<float>(0f, 5f)));
 		PressureMaxPct = base.Config.Bind("MundoVivo", "PressureMaxPct", 100f, new ConfigDescription("Tope del bonus de presión, en % relativo (100 = como mucho el doble de chance).", new AcceptableValueRange<float>(0f, 300f)));
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.20.0 cargado (todo lo anterior + barcos a carbón)");
+		Log.LogInfo("TameableCreatures 0.20.1 cargado (barcos a carbón: boost y consumo por slot)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component

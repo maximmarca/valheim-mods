@@ -78,7 +78,7 @@ Funcionan **igual que domesticar un chancho**:
 
 ## Barcos a carbón *(v0.20.0)*
 
-- Cargá **carbón en la baulera** del barco y navegá un **50% más rápido** — vela y remo. Se consume según cuánto exijas el timón: remando dura 5 min por carbón, a media vela 2 min, y **a toda vela un carbón cada 30 segundos** — el viaje rápido se paga en hollín. Sin carbón, el barco vuelve a ser el de siempre.
+- Cargá **carbón en la baulera** y navegá más rápido — vela y remo. Cada **stack de carbón es un slot de motor**: 1 slot +50%, 2 +80%, 3 +105%, 4 +120% y +10% por slot extra. El consumo es **1 carbón de cada slot** según cuánto exijas el timón (remo 5 min, media vela 2 min, **a toda vela cada 30 segundos**) — con 4 slots a fondo se queman 8 carbones por minuto: la velocidad se paga en hollín. Sin carbón, el barco de siempre.
 
 ## Estrellas por combate
 
