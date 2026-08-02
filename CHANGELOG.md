@@ -4,6 +4,9 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.14.3 — 2026-08-02 · Fix: colores mate/homogéneos en 3★+
+- Los shifts fijos de saturación/valor aplanaban la paleta autoral de cada especie (resultado mate, homogéneo, desaturado). Se volvió a la extrapolación de la progresión de color propia de cada especie (deltas 1★→2★ continuados) y la emisión quedó **apagada por defecto** (`StarGlowIntensity = 0`; opcional para quien la quiera). Configs de server y cliente Maxi puestos en 0.
+
 ### v0.14.2 — 2026-08-02 · Fix: brillo "cámara térmica" en los 3★+
 - La emisión con intensidad alta pintaba el cuerpo entero fullbright amarillo (los materiales de criatura no tienen máscara de emisión). Brillo bajado a tenue (0.25, escala leve por estrella) y configurable: `StarGlowIntensity` (0 = sin brillo, queda solo la base oscura+saturada). Reportado por Maxi en juego.
 
@@ -97,6 +100,7 @@ Rediseño de la siembra por caca en tres grupos (spec de Maxi):
 
 ## Infraestructura
 - **2026-08-01**: server dserver migrado a BepInEx nativo (`BEPINEX=true`, imagen lloesche — sobrevive autoupdates). 8 plugins activos: ActiveZones, BuildTweaks, DeathTweaks, MoreStars, PortalTweaks, ServerRules, ServerWelcome, TameableCreatures. Mundo MaxiFer conservado (backup pre-mods `worlds_local.pre-bepinex-20260801` + zips automáticos cada 6 h).
+
 
 
 

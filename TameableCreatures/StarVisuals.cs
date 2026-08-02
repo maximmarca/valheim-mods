@@ -33,13 +33,14 @@ internal static class Patch_ZNetScene_Awake_StarVisuals
 			LevelEffects.LevelSetup levelSetup = componentInChildren.m_levelSetups[0];
 			LevelEffects.LevelSetup levelSetup2 = componentInChildren.m_levelSetups[1];
 			float num3 = levelSetup2.m_scale - levelSetup.m_scale;
-			// v0.13.0: estética "oscuro + brillo" para 3★+ — base más oscura y
-			// saturada por estrella, con emisión de color creciente (fuego → rojo
-			// → violeta). El tamaño sigue extrapolando la progresión de la especie.
-			// paleta acorde a las habilidades: 3★ fuego, 4★ hielo, 5★ tormenta.
-			// v0.14.2: la mayoría de los materiales de criaturas no tienen máscara
-			// de emisión — con intensidad alta el cuerpo entero queda fullbright
-			// (efecto "cámara térmica"). Brillo tenue y configurable.
+			// v0.14.3: los shifts fijos de sat/valor aplanaban los colores propios
+			// de cada especie (resultado mate y homogéneo). Se extrapola la
+			// progresión de color AUTORAL de cada especie (deltas 1★→2★
+			// continuados), que respeta las texturas. La emisión (paleta fuego/
+			// hielo/tormenta) queda opcional vía StarGlowIntensity, default 0.
+			float num4 = levelSetup2.m_hue - levelSetup.m_hue;
+			float num5 = levelSetup2.m_saturation - levelSetup.m_saturation;
+			float num6 = levelSetup2.m_value - levelSetup.m_value;
 			Color[] array2 = new Color[3]
 			{
 				new Color(1f, 0.55f, 0.1f),
@@ -53,9 +54,9 @@ internal static class Patch_ZNetScene_Awake_StarVisuals
 				componentInChildren.m_levelSetups.Add(new LevelEffects.LevelSetup
 				{
 					m_scale = Mathf.Min(levelSetup2.m_scale + num3 * (float)num7, levelSetup2.m_scale * 2f),
-					m_hue = levelSetup2.m_hue,
-					m_saturation = Mathf.Clamp(levelSetup2.m_saturation + 0.15f * (float)num7, -1f, 1f),
-					m_value = Mathf.Clamp(levelSetup2.m_value - 0.22f * (float)num7, -1f, 1f),
+					m_hue = levelSetup2.m_hue + num4 * (float)num7,
+					m_saturation = Mathf.Clamp(levelSetup2.m_saturation + num5 * (float)num7, -1f, 1f),
+					m_value = Mathf.Clamp(levelSetup2.m_value + num6 * (float)num7, -1f, 1f),
 					m_setEmissiveColor = glow > 0f,
 					m_emissiveColor = array2[Mathf.Min(num7 - 1, array2.Length - 1)] * (glow * (1f + 0.4f * (float)(num7 - 1))),
 					m_enableObject = levelSetup2.m_enableObject
