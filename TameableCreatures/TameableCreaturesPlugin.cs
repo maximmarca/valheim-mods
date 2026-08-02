@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.17.0")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.17.1")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.17.0";
+	public const string PluginVersion = "0.17.1";
 
 	internal static ManualLogSource Log;
 
@@ -124,6 +124,10 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 
 	internal static ConfigEntry<float> StarAuraBrightness;
 
+	internal static ConfigEntry<float> StarAuraBrightnessTamed;
+
+	internal static ConfigEntry<string> HoeCleanExcludedOps;
+
 	internal static ConfigEntry<bool> HoeCleanEnabled;
 
 	internal static ConfigEntry<string> HoeCleanPrefabs;
@@ -187,6 +191,7 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		MushroomZoneRadius = base.Config.Bind("Siembra", "MushroomZoneRadius", 20f, new ConfigDescription("Radio en metros del chequeo por zona.", new AcceptableValueRange<float>(5f, 60f)));
 		HoeCleanEnabled = base.Config.Bind("Siembra", "HoeCleanEnabled", defaultValue: true, "Pasar la azada o el cultivador destruye los hongos (HoeCleanPrefabs) dentro del radio de la operación: forma de limpiar zonas invadidas.");
 		HoeCleanPrefabs = base.Config.Bind("Siembra", "HoeCleanPrefabs", "Pickable_Mushroom", "Prefabs que limpia la azada, separados por coma.");
+		HoeCleanExcludedOps = base.Config.Bind("Siembra", "HoeCleanExcludedOps", "cultivate,replant", "Operaciones de terreno que NO limpian (por nombre de prefab, subcadenas separadas por coma). Default: las del cultivador.");
 		KillStarChance = base.Config.Bind("Combate", "KillStarChance", 0.02f, new ConfigDescription("Probabilidad de que un domesticado suba una estrella al rematar a un enemigo.", new AcceptableValueRange<float>(0f, 1f)));
 		AssistStarChance = base.Config.Bind("Combate", "AssistStarChance", 0.01f, new ConfigDescription("Probabilidad de subir una estrella por asistir en la muerte (haberlo dañado en la ventana previa).", new AcceptableValueRange<float>(0f, 1f)));
 		AssistWindowSeconds = base.Config.Bind("Combate", "AssistWindowSeconds", 60f, new ConfigDescription("Segundos previos a la muerte en los que un golpe cuenta como asistencia.", new AcceptableValueRange<float>(5f, 300f)));
@@ -198,10 +203,11 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		StarGlowIntensity = base.Config.Bind("Combate", "StarGlowIntensity", 0f, new ConfigDescription("Intensidad del brillo de color de los 3★+ (sin máscara de emisión, valores altos dejan el cuerpo entero fullbright tipo cámara térmica). 0 = sin brillo, solo base oscura+saturada.", new AcceptableValueRange<float>(0f, 3f)));
 		StarAuraEnabled = base.Config.Bind("Combate", "StarAuraEnabled", defaultValue: true, "Aura elemental visible en criaturas 3★+ (partículas de llama vanilla): 3★ fuego, 4★ escarcha, 5★ rayo violeta. Solo visual, por cliente.");
 		StarAuraScale = base.Config.Bind("Combate", "StarAuraScale", 1f, new ConfigDescription("Multiplicador del tamaño del aura elemental (el tamaño base sigue al cuerpo de cada especie).", new AcceptableValueRange<float>(0.2f, 3f)));
-		StarAuraBrightness = base.Config.Bind("Combate", "StarAuraBrightness", 0.9f, new ConfigDescription("Brillo del color del aura (1 = el original; 0.9 = 10% menos).", new AcceptableValueRange<float>(0.2f, 1.5f)));
+		StarAuraBrightness = base.Config.Bind("Combate", "StarAuraBrightness", 0.9f, new ConfigDescription("Brillo del color del aura de criaturas SALVAJES (1 = el original; 0.9 = 10% menos).", new AcceptableValueRange<float>(0.2f, 1.5f)));
+		StarAuraBrightnessTamed = base.Config.Bind("Combate", "StarAuraBrightnessTamed", 0.75f, new ConfigDescription("Brillo del aura de los DOMESTICADOS (más tenue para convivir con ellos sin encandilar).", new AcceptableValueRange<float>(0.2f, 1.5f)));
 		StarClassMap = base.Config.Bind("Combate", "StarClassMap", "Greyling:raiz,Greydwarf:raiz,Greydwarf_Elite:espinas,Greydwarf_Shaman:curacion,Skeleton:critico,Skeleton_Poison:veneno,Ghost:robovida,Troll:inamovible,Draugr:veneno,Draugr_Ranged:veneno,Draugr_Elite:grito,Blob:veneno,BlobElite:nausea,Leech:robovida,Wraith:robovida,Abomination:raiz,Surtling:nova,Wolf:escarcha,Fenring:desarme,Fenring_Cultist:fuego,Ulv:sangrado,Hatchling:escarcha,StoneGolem:pielhierro,Bat:robovida,Goblin:critico,GoblinBrute:inamovible,GoblinShaman:maldicion,Deathsquito:rayo,Lox:embestida,Seeker:sangrado,SeekerBrute:arpon,Tick:nausea,Gjall:nova,Serpent:empapar,Boar:embestida,Neck:esquiva,Deer:celeridad,Bjorn:embestida,Bear_undead:robovida", "Habilidad de clase por especie 3★+ (pares criatura:habilidad). Habilidades: fuego, escarcha, rayo, veneno, robovida, raiz, critico, esquiva, celeridad, espinas, pielhierro, inamovible, embestida, curacion, grito, escudo, nova, desarme, sangrado, arpon, nausea, empapar, maldicion. Especies sin entrada usan el sistema por tier (3★ fuego / 4★ escarcha / 5★ rayo).");
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.17.0 cargado (todo lo anterior + azada limpia hongos, tope por zona, brillo de aura)");
+		Log.LogInfo("TameableCreatures 0.17.1 cargado (fix: cultivador no limpia; aura de domesticados más tenue)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component

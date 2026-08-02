@@ -4,6 +4,10 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.17.1 — 2026-08-02 · Fix: el cultivador no limpia + aura de domesticados más tenue
+- **El cultivador ya NO destruye hongos** (reportado por Maxi): cultivar es preparar el suelo donde se quiere sembrar. Solo limpian las operaciones de la azada (allanar, caminos, elevar). Config `HoeCleanExcludedOps` (default `cultivate,replant`).
+- **Aura de domesticados más tenue**: brillo propio `StarAuraBrightnessTamed` (0.75) separado del de los salvajes (`StarAuraBrightness`, 0.9). Si domesticás una criatura con aura, se regenera sola con el brillo nuevo.
+
 ### v0.17.0 — 2026-08-02 · Azada limpia hongos, tope por zona y brillo de aura
 - **La azada limpia hongos**: cualquier operación de terreno (allanar, camino, cultivar) destruye los hongos (`HoeCleanPrefabs`, default `Pickable_Mushroom`) dentro de su radio — la forma pedida de recuperar zonas invadidas por la siembra. `HoeCleanEnabled` para apagarlo.
 - **Tope de hongos por ZONA**: los topes eran por manchón de 4 m y los manchones adyacentes se solapaban sin límite total. Ahora además: con `MushroomMaxPerZone` (12) o más hongos del mismo tipo en `MushroomZoneRadius` (20 m), no se multiplican más.

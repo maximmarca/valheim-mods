@@ -170,6 +170,7 @@ public class StarAura : MonoBehaviour
 				m_scale = Mathf.Clamp(capsule.radius * 2f, 0.6f, 3.5f);
 			}
 			m_character.m_onLevelSet = (Action<int>)Delegate.Combine(m_character.m_onLevelSet, new Action<int>(OnLevelSet));
+			m_wasTamed = m_character.IsTamed();
 			Refresh(m_character.GetLevel());
 			InvokeRepeating("ClassTick", UnityEngine.Random.Range(2f, 3f), 2f);
 		}
@@ -188,9 +189,23 @@ public class StarAura : MonoBehaviour
 		Refresh(level);
 	}
 
+	private bool m_wasTamed;
+
 	private void ClassTick()
 	{
-		if (m_character == null || m_character.IsDead() || m_nview == null || !m_nview.IsValid() || !m_nview.IsOwner())
+		if (m_character == null || m_character.IsDead())
+		{
+			return;
+		}
+		// v0.17.1: si lo domestican en vivo, regenerar el aura con su brillo
+		// (esto corre en todos los clientes; las habilidades, solo en el owner)
+		bool tamed = m_character.IsTamed();
+		if (tamed != m_wasTamed)
+		{
+			m_wasTamed = tamed;
+			Refresh(m_character.GetLevel());
+		}
+		if (m_nview == null || !m_nview.IsValid() || !m_nview.IsOwner())
 		{
 			return;
 		}
@@ -225,8 +240,9 @@ public class StarAura : MonoBehaviour
 			return;
 		}
 		Color color = StarClasses.AuraColor(StarClasses.AbilityFor(m_character)) ?? LegacyTier[tier];
-		// v0.17.0: brillo del aura configurable (pedido: −10% por defecto)
-		float brightness = Mathf.Clamp(TameableCreaturesPlugin.StarAuraBrightness.Value, 0.2f, 1.5f);
+		// v0.17.0: brillo del aura configurable; v0.17.1: los domesticados con
+		// su propio valor, más tenue (pedido de Maxi).
+		float brightness = Mathf.Clamp(m_character.IsTamed() ? TameableCreaturesPlugin.StarAuraBrightnessTamed.Value : TameableCreaturesPlugin.StarAuraBrightness.Value, 0.2f, 1.5f);
 		color = new Color(color.r * brightness, color.g * brightness, color.b * brightness, color.a);
 		m_aura = UnityEngine.Object.Instantiate(template, m_attach);
 		m_aura.name = "tc_aura";
