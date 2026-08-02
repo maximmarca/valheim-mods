@@ -4,6 +4,9 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.15.1 — 2026-08-02 · Honguitos sembrados en blanco pleno
+- Los hongos sembrados por caca, mientras crecen (30%/50%), ahora se ven **completamente blancos**: el `Lerp` al 85% de la 0.8.2 les dejaba un resto rosado del color original. Pedido de Maxi tras probar en juego.
+
 ### v0.15.0 — 2026-08-02 · Aura elemental para 3★+
 - Diagnóstico del pendiente "los 3★+ no se distinguen": la extrapolación autoral (0.14.3) hereda deltas de tinte casi nulos en muchas especies y una escala de +5-15% por estrella — no había canal visual con margen. En vez de seguir con materiales, **aura de partículas** a juego con las habilidades 0.14.x: **3★ llama de fuego, 4★ llama de escarcha** (antorcha azul vanilla si existe, o llama teñida azul hielo), **5★ llama violeta "rayo"**.
 - Implementación: componente `StarAura` en cada criatura con `LevelEffects`; clona las llamas de la antorcha vanilla (sin `ZNetView`, luces, audio ni humo), las centra en el cuerpo y las escala por el radio del collider de la especie. Se renueva en vivo al subir de estrella (mismo `m_onLevelSet` del vanilla). Solo visual y por cliente: **un cliente sin el mod no ve nada y no da errores**.

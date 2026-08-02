@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.15.0")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.15.1")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.15.0";
+	public const string PluginVersion = "0.15.1";
 
 	internal static ManualLogSource Log;
 
@@ -183,7 +183,7 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		StarAuraEnabled = base.Config.Bind("Combate", "StarAuraEnabled", defaultValue: true, "Aura elemental visible en criaturas 3★+ (partículas de llama vanilla): 3★ fuego, 4★ escarcha, 5★ rayo violeta. Solo visual, por cliente.");
 		StarAuraScale = base.Config.Bind("Combate", "StarAuraScale", 1f, new ConfigDescription("Multiplicador del tamaño del aura elemental (el tamaño base sigue al cuerpo de cada especie).", new AcceptableValueRange<float>(0.2f, 3f)));
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.15.0 cargado (todo lo anterior + aura elemental 3-5 estrellas)");
+		Log.LogInfo("TameableCreatures 0.15.1 cargado (todo lo anterior + honguitos sembrados blanco pleno)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component

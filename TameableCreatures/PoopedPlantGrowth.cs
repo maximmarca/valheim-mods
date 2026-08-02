@@ -241,7 +241,8 @@ public class PoopedPlantGrowth : MonoBehaviour
 
 	private void CaptureTints()
 	{
-		// arbustos: tinte verdoso (multiplicativo); hongos: blancos (v0.8.2)
+		// arbustos: tinte verdoso (multiplicativo); hongos: blanco pleno
+		// (v0.15.1; el Lerp 0.85 de la 0.8.2 les dejaba un resto rosado)
 		Color color = new Color(0.72f, 1f, 0.68f);
 		Renderer[] componentsInChildren = GetComponentsInChildren<Renderer>(includeInactive: true);
 		foreach (Renderer renderer in componentsInChildren)
@@ -256,7 +257,7 @@ public class PoopedPlantGrowth : MonoBehaviour
 						Mat = material,
 						Col = material.color
 					});
-					material.color = (m_isMushroom ? Color.Lerp(material.color, Color.white, 0.85f) : (material.color * color));
+					material.color = (m_isMushroom ? new Color(1f, 1f, 1f, material.color.a) : (material.color * color));
 				}
 			}
 		}
