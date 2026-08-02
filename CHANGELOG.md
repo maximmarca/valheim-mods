@@ -4,6 +4,9 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.19.0 — 2026-08-02 · Stats de mobs al apuntar (pedido de Fer)
+- Al apuntar a cualquier mob (jefes excluidos), bajo el nombre: **♥ vida actual/máxima** en números, **⚔ daño estimado** de su mejor ataque con el multiplicador de estrellas aplicado, y **Débil/Resiste** por tipo de daño (la "defensa" de Valheim son modificadores por tipo; ✕ = inmune). Config `MobStatsEnabled`. Solo visual, por cliente.
+
 ### v0.18.1 — 2026-08-02 · Edad visible + ítems en base expiran (pedidos de Fer)
 - **La edad se ve al apuntar** al animal domesticado: "Edad: 12,3/30 días", con la marca "(anciano)" cuando entra en la última etapa.
 - **Los ítems tirados dentro de una base expiran a los 5 días de juego**, haya o no jugadores cerca (vanilla: dentro de zona de banco NO expiraban nunca y se acumulaban sin límite con las granjas 24/7). Fuera de base sigue vanilla (3 días, frenado por cercanía). Config `BaseItemExpiryDays` (0 = vanilla).
