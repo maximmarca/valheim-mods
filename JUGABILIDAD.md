@@ -77,6 +77,7 @@ Funcionan **igual que domesticar un chancho**:
 - Combina con la cría: un animal que subió de estrellas peleando **hereda ese nivel a sus crías** — entrenar a la madre mejora la línea de sangre.
 - **Se ven** *(v0.10–0.13)*: de 3★ en adelante cada estrella agranda al bicho, lo oscurece y le enciende un **brillo de color**: 3★ fuego naranja, 4★ rojo, 5★ violeta. Al apuntarlo, íconos de estrella reales.
 - **Pegan en serio** *(v0.13.0)*: el daño escala **exponencial** (×1,5 por estrella compuesto): 3★ pega 3,4×, 5★ **7,6×** (vanilla era 3,5× a lo sumo). Vale para tus mascotas entrenadas… y para los enemigos salvajes: si ves brillar algo violeta en la oscuridad, corré.
+- **Habilidades** *(v0.14.0)*: **3★ Ígneo** (brillo naranja) prende fuego con cada golpe; **4★ Gélido** (brillo celeste hielo) congela y frena; **5★ Tormenta** (brillo violeta) golpea con rayos y aguanta un **25% más de daño físico**. Tu jauría las gana al subir de estrellas — y los enemigos salvajes también las tienen.
 
 ## Baúl de basura
 

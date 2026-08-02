@@ -49,7 +49,8 @@ Resumen — detalle completo en [CHANGELOG.md](CHANGELOG.md):
 
 | Versión | Cambios |
 |---|---|
-| 0.13.0 | Daño exponencial por estrella (5★ = 7,6×) + visuales oscuro/brillante (fuego/rojo/violeta) |
+| 0.14.0 | Habilidades por estrellas: 3★ fuego, 4★ escarcha (brillo celeste), 5★ rayo + resistencia |
+| 0.13.0 | Daño exponencial por estrella (5★ = 7,6×) + visuales oscuro/brillante |
 | 0.12.0 | Baúl de basura: pieza nueva que destruye lo que guardes adentro |
 | 0.11.2 | Íconos de estrella reales en el HUD para 3★–5★ (antes texto "★N") |
 | 0.11.1 | Fix prefab carne de oso: el ítem real es `BjornMeat` |

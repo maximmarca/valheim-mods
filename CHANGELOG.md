@@ -4,6 +4,10 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.14.0 — 2026-08-02 · Habilidades especiales por estrellas
+- **3★ Ígneo**: sus golpes suman **daño de fuego** (30% del daño físico) → quemadura. **4★ Gélido**: **escarcha** → frena al objetivo (el brillo pasó de rojo a **celeste hielo** para coincidir). **5★ Tormenta**: **rayo** + **25% de resistencia física** pasiva.
+- Aplica a salvajes y domesticados por igual. Config: `StarElementalPercent` (0.3; 0 = apagado) y `StarFiveResistPercent` (25). Hook: prefix en `Character.ApplyDamage`.
+
 ### v0.13.0 — 2026-08-02 · Daño exponencial + visuales dramáticos por estrella
 - **Daño exponencial**: vanilla escala lineal (+50% por estrella; un 5★ pega 3,5×). Ahora `factor = StarDamagePerStar ^ estrellas` (default 1,5): 1★ igual vanilla, 3★ 3,4×, 5★ **7,6×**. Aplica a enemigos salvajes y mascotas por igual. Config `StarDamagePerStar` (1 = volver a vanilla).
 - **Visuales dramáticos 3★+**: en vez de la extrapolación sutil, base **más oscura y saturada** por estrella con **emisión brillante creciente**: 3★ fuego naranja, 4★ rojo, 5★ violeta. El tamaño sigue la progresión de cada especie.

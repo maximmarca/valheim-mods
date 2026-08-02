@@ -36,10 +36,11 @@ internal static class Patch_ZNetScene_Awake_StarVisuals
 			// v0.13.0: estética "oscuro + brillo" para 3★+ — base más oscura y
 			// saturada por estrella, con emisión de color creciente (fuego → rojo
 			// → violeta). El tamaño sigue extrapolando la progresión de la especie.
+			// paleta acorde a las habilidades: 3★ fuego, 4★ hielo, 5★ tormenta
 			Color[] array2 = new Color[3]
 			{
 				new Color(1f, 0.55f, 0.1f) * 1.6f,
-				new Color(1f, 0.12f, 0.05f) * 2.2f,
+				new Color(0.3f, 0.8f, 1f) * 2.2f,
 				new Color(0.75f, 0.15f, 1f) * 2.8f
 			};
 			for (int i = 4; i <= num; i++)
