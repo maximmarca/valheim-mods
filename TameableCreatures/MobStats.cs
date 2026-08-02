@@ -68,10 +68,15 @@ internal static class Patch_EnemyHud_UpdateHuds_MobStats
 				GameObject gameObject = Object.Instantiate(nameText.gameObject, parent);
 				gameObject.name = "tc_mobstats";
 				statsText = gameObject.GetComponent<TextMeshProUGUI>();
-				statsText.fontSize = nameText.fontSize * 0.7f;
+				statsText.fontSize = nameText.fontSize * 0.65f;
+				// v0.19.1: debajo de la barra de vida (antes pisaba nombre y
+				// estrellas); alineado arriba para que las líneas crezcan hacia
+				// abajo. Offset ajustable por config sin recompilar.
+				statsText.alignment = TextAlignmentOptions.Top;
+				statsText.enableWordWrapping = false;
 				RectTransform rectTransform = (RectTransform)gameObject.transform;
 				RectTransform nameRect = (RectTransform)nameText.transform;
-				rectTransform.anchoredPosition = nameRect.anchoredPosition + new Vector2(0f, 0f - nameText.fontSize * 1.15f);
+				rectTransform.anchoredPosition = nameRect.anchoredPosition + new Vector2(0f, TameableCreaturesPlugin.MobStatsOffsetY.Value);
 			}
 			else
 			{

@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.19.0")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.19.1")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.19.0";
+	public const string PluginVersion = "0.19.1";
 
 	internal static ManualLogSource Log;
 
@@ -146,6 +146,8 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 
 	internal static ConfigEntry<bool> MobStatsEnabled;
 
+	internal static ConfigEntry<float> MobStatsOffsetY;
+
 	internal static ConfigEntry<bool> AgingEnabled;
 
 	internal static ConfigEntry<float> AgingLifespanDays;
@@ -233,6 +235,7 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		StarAuraBrightnessTamed = base.Config.Bind("Combate", "StarAuraBrightnessTamed", 0.75f, new ConfigDescription("Brillo del aura de los DOMESTICADOS (más tenue para convivir con ellos sin encandilar).", new AcceptableValueRange<float>(0.2f, 1.5f)));
 		StarClassMap = base.Config.Bind("Combate", "StarClassMap", "Greyling:raiz,Greydwarf:raiz,Greydwarf_Elite:espinas,Greydwarf_Shaman:curacion,Skeleton:critico,Skeleton_Poison:veneno,Ghost:robovida,Troll:inamovible,Draugr:veneno,Draugr_Ranged:veneno,Draugr_Elite:grito,Blob:veneno,BlobElite:nausea,Leech:robovida,Wraith:robovida,Abomination:raiz,Surtling:nova,Wolf:escarcha,Fenring:desarme,Fenring_Cultist:fuego,Ulv:sangrado,Hatchling:escarcha,StoneGolem:pielhierro,Bat:robovida,Goblin:critico,GoblinBrute:inamovible,GoblinShaman:maldicion,Deathsquito:rayo,Lox:embestida,Seeker:sangrado,SeekerBrute:arpon,Tick:nausea,Gjall:nova,Serpent:empapar,Boar:embestida,Neck:esquiva,Deer:celeridad,Bjorn:embestida,Bear_undead:robovida", "Habilidad de clase por especie 3★+ (pares criatura:habilidad). Habilidades: fuego, escarcha, rayo, veneno, robovida, raiz, critico, esquiva, celeridad, espinas, pielhierro, inamovible, embestida, curacion, grito, escudo, nova, desarme, sangrado, arpon, nausea, empapar, maldicion. Especies sin entrada usan el sistema por tier (3★ fuego / 4★ escarcha / 5★ rayo).");
 		MobStatsEnabled = base.Config.Bind("General", "MobStatsEnabled", defaultValue: true, "Al apuntar a un mob muestra vida en números, daño estimado de su mejor ataque (con estrellas) y resistencias/debilidades. Jefes excluidos.");
+		MobStatsOffsetY = base.Config.Bind("General", "MobStatsOffsetY", -34f, new ConfigDescription("Desplazamiento vertical de la línea de stats respecto del nombre del mob (negativo = más abajo). Ajustar si se pisa con otra cosa.", new AcceptableValueRange<float>(-100f, 0f)));
 		BaseItemExpiryDays = base.Config.Bind("General", "BaseItemExpiryDays", 5f, new ConfigDescription("Los ítems tirados DENTRO de una base (zona de banco) expiran a los N días de juego, haya o no jugadores cerca (vanilla: nunca — se acumulan sin límite con las granjas 24/7). 0 = vanilla.", new AcceptableValueRange<float>(0f, 100f)));
 		AgingEnabled = base.Config.Bind("Vejez", "AgingEnabled", defaultValue: true, "Los animales DOMESTICADOS envejecen y mueren de viejos. Los existentes arrancan a envejecer al instalar (vida completa por delante).");
 		AgingLifespanDays = base.Config.Bind("Vejez", "AgingLifespanDays", 30f, new ConfigDescription("Esperanza de vida en días de juego (con día de 20 min: 30 días = 10 h reales).", new AcceptableValueRange<float>(1f, 1000f)));
@@ -246,7 +249,7 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		PressurePerDayPct = base.Config.Bind("MundoVivo", "PressurePerDayPct", 0.3f, new ConfigDescription("Cuánto sube la chance de estrella por día de mundo, en % relativo (0.3 => +30% al día 100).", new AcceptableValueRange<float>(0f, 5f)));
 		PressureMaxPct = base.Config.Bind("MundoVivo", "PressureMaxPct", 100f, new ConfigDescription("Tope del bonus de presión, en % relativo (100 = como mucho el doble de chance).", new AcceptableValueRange<float>(0f, 300f)));
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.19.0 cargado (todo lo anterior + stats de mobs al apuntar)");
+		Log.LogInfo("TameableCreatures 0.19.1 cargado (fix: stats de mobs sin pisar nombre/estrellas)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component

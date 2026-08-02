@@ -4,6 +4,9 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.19.1 — 2026-08-02 · Fix: stats sin pisar el nombre
+- La línea de stats se pisaba con el nombre y las estrellas (reporte de Fer): ahora va más abajo, alineada arriba y sin ajuste de línea. `MobStatsOffsetY` para afinar la posición sin recompilar.
+
 ### v0.19.0 — 2026-08-02 · Stats de mobs al apuntar (pedido de Fer)
 - Al apuntar a cualquier mob (jefes excluidos), bajo el nombre: **♥ vida actual/máxima** en números, **⚔ daño estimado** de su mejor ataque con el multiplicador de estrellas aplicado, y **Débil/Resiste** por tipo de daño (la "defensa" de Valheim son modificadores por tipo; ✕ = inmune). Config `MobStatsEnabled`. Solo visual, por cliente.
 
