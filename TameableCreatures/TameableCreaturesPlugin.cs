@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.15.1")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.16.0")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.15.1";
+	public const string PluginVersion = "0.16.0";
 
 	internal static ManualLogSource Log;
 
@@ -120,6 +120,8 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 
 	internal static ConfigEntry<float> StarAuraScale;
 
+	internal static ConfigEntry<string> StarClassMap;
+
 	internal static ConfigEntry<string> ExtraFood;
 
 	internal static ConfigEntry<bool> TrashChestEnabled;
@@ -182,8 +184,9 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		StarGlowIntensity = base.Config.Bind("Combate", "StarGlowIntensity", 0f, new ConfigDescription("Intensidad del brillo de color de los 3★+ (sin máscara de emisión, valores altos dejan el cuerpo entero fullbright tipo cámara térmica). 0 = sin brillo, solo base oscura+saturada.", new AcceptableValueRange<float>(0f, 3f)));
 		StarAuraEnabled = base.Config.Bind("Combate", "StarAuraEnabled", defaultValue: true, "Aura elemental visible en criaturas 3★+ (partículas de llama vanilla): 3★ fuego, 4★ escarcha, 5★ rayo violeta. Solo visual, por cliente.");
 		StarAuraScale = base.Config.Bind("Combate", "StarAuraScale", 1f, new ConfigDescription("Multiplicador del tamaño del aura elemental (el tamaño base sigue al cuerpo de cada especie).", new AcceptableValueRange<float>(0.2f, 3f)));
+		StarClassMap = base.Config.Bind("Combate", "StarClassMap", "Greyling:raiz,Greydwarf:raiz,Greydwarf_Elite:espinas,Greydwarf_Shaman:curacion,Skeleton:critico,Skeleton_Poison:veneno,Ghost:robovida,Troll:inamovible,Draugr:veneno,Draugr_Ranged:veneno,Draugr_Elite:grito,Blob:veneno,BlobElite:nausea,Leech:robovida,Wraith:robovida,Abomination:raiz,Surtling:nova,Wolf:escarcha,Fenring:desarme,Fenring_Cultist:fuego,Ulv:sangrado,Hatchling:escarcha,StoneGolem:pielhierro,Bat:robovida,Goblin:critico,GoblinBrute:inamovible,GoblinShaman:maldicion,Deathsquito:rayo,Lox:embestida,Seeker:sangrado,SeekerBrute:arpon,Tick:nausea,Gjall:nova,Serpent:empapar,Boar:embestida,Neck:esquiva,Deer:celeridad,Bjorn:embestida,Bear_undead:robovida", "Habilidad de clase por especie 3★+ (pares criatura:habilidad). Habilidades: fuego, escarcha, rayo, veneno, robovida, raiz, critico, esquiva, celeridad, espinas, pielhierro, inamovible, embestida, curacion, grito, escudo, nova, desarme, sangrado, arpon, nausea, empapar, maldicion. Especies sin entrada usan el sistema por tier (3★ fuego / 4★ escarcha / 5★ rayo).");
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.15.1 cargado (todo lo anterior + honguitos sembrados blanco pleno)");
+		Log.LogInfo("TameableCreatures 0.16.0 cargado (todo lo anterior + habilidades por clase de criatura)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component

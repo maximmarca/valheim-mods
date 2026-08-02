@@ -4,6 +4,12 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.16.0 — 2026-08-02 · Habilidades por clase de criatura
+- Las habilidades de 3★+ ya no van por tier fijo: **cada especie tiene una habilidad de su clase** (config `StarClassMap`, pares `criatura:habilidad`) y las estrellas escalan magnitud/duración (3★/4★/5★). Especies sin entrada conservan el sistema anterior (3★ fuego / 4★ escarcha / 5★ rayo + resist del 5★).
+- **23 habilidades**: elementales (fuego, escarcha, rayo, veneno), robo de vida, raíz (inmoviliza 3-5 s), crítico, esquiva, celeridad, espinas, piel de hierro, inamovible, embestida aturdidora, aura de curación aliada, grito de guerra, escudo (burbuja vanilla), nova de fuego en área, desarme (te saca el arma y bloquea re-equipar 3-5 s), sangrado (DoT custom), arpón (te arrastra hacia la criatura, SE_Harpooned invertido — suelta al atacar/bloquear), náusea (te hace vomitar comidas, solo jugadores), empapar (mojado, sinergia con escarcha) y maldición (skills/stamina abajo).
+- Mapa default: Greydwarfs raíz, Shaman curación, Troll/Berserker inamovible, Draugr veneno, Draugr Elite grito, Oozer/Tick náusea, Leech/Wraith/Ghost/Bat robo de vida, Abomination raíz, Surtling/Gjall nova, Wolf/Drake escarcha, Fenring desarme, Cultist fuego, Golem piel de hierro, Fulings crítico/maldición, Deathsquito rayo, Lox/Boar embestida, Seeker sangrado, Seeker Soldier arpón, serpiente empapar, Neck esquiva, Deer celeridad, Bjorn embestida.
+- **El aura toma el color de la clase** (veneno verde, robo de vida carmesí, tanques ámbar, agilidad plateado, soporte dorado, maldición violeta oscuro…) y las estrellas escalan su tamaño. CC duro capado en 5 s. Todo verificado contra el vanilla descompilado (SEMan acepta instancias propias, Heal se auto-rutea por red, SE_Puke solo jugadores, SE_Harpooned acepta cualquier atacante).
+
 ### v0.15.1 — 2026-08-02 · Honguitos sembrados en blanco pleno
 - Los hongos sembrados por caca, mientras crecen (30%/50%), ahora se ven **completamente blancos**: el `Lerp` al 85% de la 0.8.2 les dejaba un resto rosado del color original. Pedido de Maxi tras probar en juego.
 

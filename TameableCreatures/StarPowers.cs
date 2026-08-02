@@ -47,39 +47,66 @@ internal static class Patch_Character_ApplyDamage_StarPowers
 		{
 			return;
 		}
-		float value = TameableCreaturesPlugin.StarElementalPercent.Value;
+		// v0.16.0: lado ofensivo — especies con clase usan su habilidad;
+		// las demás conservan el sistema por tier (3★ fuego / 4★ escarcha / 5★ rayo).
 		Character attacker = hit.GetAttacker();
-		if (value > 0f && attacker != null && !attacker.IsPlayer())
+		if (attacker != null && !attacker.IsPlayer())
 		{
 			int num = attacker.GetLevel() - 1;
-			if (num >= 3)
+			int tier = StarClasses.TierIndex(num);
+			if (tier >= 0)
 			{
-				float num2 = hit.m_damage.GetTotalPhysicalDamage() * value;
-				if (num2 > 0f)
+				string ability = StarClasses.AbilityFor(attacker);
+				if (ability != null)
 				{
-					if (num == 3)
+					StarClasses.OnHit(attacker, __instance, hit, ability, tier);
+				}
+				else
+				{
+					float value = TameableCreaturesPlugin.StarElementalPercent.Value;
+					float num2 = hit.m_damage.GetTotalPhysicalDamage() * value;
+					if (value > 0f && num2 > 0f)
 					{
-						hit.m_damage.m_fire += num2;
+						if (num == 3)
+						{
+							hit.m_damage.m_fire += num2;
+						}
+						else if (num == 4)
+						{
+							hit.m_damage.m_frost += num2;
+						}
+						else
+						{
+							hit.m_damage.m_lightning += num2;
+						}
+						SpawnHitFx(Mathf.Min(num, 5), hit.m_point);
 					}
-					else if (num == 4)
-					{
-						hit.m_damage.m_frost += num2;
-					}
-					else
-					{
-						hit.m_damage.m_lightning += num2;
-					}
-					SpawnHitFx(Mathf.Min(num, 5), hit.m_point);
 				}
 			}
 		}
-		float value2 = TameableCreaturesPlugin.StarFiveResistPercent.Value;
-		if (value2 > 0f && !__instance.IsPlayer() && __instance.GetLevel() - 1 >= 5)
+		// lado defensivo — clase de la víctima; sin clase, la resist del 5★ de siempre
+		if (!__instance.IsPlayer())
 		{
-			float num3 = 1f - Mathf.Clamp01(value2 / 100f);
-			hit.m_damage.m_blunt *= num3;
-			hit.m_damage.m_slash *= num3;
-			hit.m_damage.m_pierce *= num3;
+			int tier2 = StarClasses.TierIndex(__instance.GetLevel() - 1);
+			if (tier2 >= 0)
+			{
+				string ability2 = StarClasses.AbilityFor(__instance);
+				if (ability2 != null)
+				{
+					StarClasses.OnDamaged(__instance, hit, ability2, tier2);
+				}
+				else
+				{
+					float value2 = TameableCreaturesPlugin.StarFiveResistPercent.Value;
+					if (value2 > 0f && __instance.GetLevel() - 1 >= 5)
+					{
+						float num3 = 1f - Mathf.Clamp01(value2 / 100f);
+						hit.m_damage.m_blunt *= num3;
+						hit.m_damage.m_slash *= num3;
+						hit.m_damage.m_pierce *= num3;
+					}
+				}
+			}
 		}
 	}
 }
