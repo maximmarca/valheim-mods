@@ -50,6 +50,7 @@ Funcionan **igual que domesticar un chancho**:
 
   **Hongos** (hongo → hongo): crecen igual que los arbustos (30% → 50% → 100% en 3
   noches) — mientras crecen se ven como **honguitos blancos** chiquitos, no cosechables.
+- **Control de la plaga** *(v0.17.0)*: los hongos dejan de multiplicarse cuando ya hay **12 en la zona** (20 m), y **pasar la azada o el cultivador limpia los hongos** del área — la herramienta para recuperar terreno invadido.
   Al madurar recuperan su color rojo, se pueden cosechar, y además **se multiplican
   solos**: +1 hongo (60%) o +2 (40%), hasta un máximo de **7 hongos por manchón**
   (radio 4 m). Los nuevos también nacen chiquitos y siguen el ciclo — una colonia que

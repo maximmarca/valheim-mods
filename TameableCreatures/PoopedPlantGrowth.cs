@@ -175,6 +175,13 @@ public class PoopedPlantGrowth : MonoBehaviour
 		{
 			return;
 		}
+		// v0.17.0: tope por ZONA además del tope por manchón — los manchones
+		// adyacentes se solapaban y el área total acumulaba sin límite.
+		int zoneMax = TameableCreaturesPlugin.MushroomMaxPerZone.Value;
+		if (zoneMax > 0 && CountSameNearby(prefabName, TameableCreaturesPlugin.MushroomZoneRadius.Value) >= zoneMax)
+		{
+			return;
+		}
 		int num3 = ((Random.value < TameableCreaturesPlugin.MushroomChanceOne.Value) ? 1 : 2);
 		num3 = Mathf.Min(num3, num2);
 		GameObject prefab = ZNetScene.instance.GetPrefab(prefabName);

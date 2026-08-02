@@ -225,6 +225,9 @@ public class StarAura : MonoBehaviour
 			return;
 		}
 		Color color = StarClasses.AuraColor(StarClasses.AbilityFor(m_character)) ?? LegacyTier[tier];
+		// v0.17.0: brillo del aura configurable (pedido: −10% por defecto)
+		float brightness = Mathf.Clamp(TameableCreaturesPlugin.StarAuraBrightness.Value, 0.2f, 1.5f);
+		color = new Color(color.r * brightness, color.g * brightness, color.b * brightness, color.a);
 		m_aura = UnityEngine.Object.Instantiate(template, m_attach);
 		m_aura.name = "tc_aura";
 		m_aura.transform.localPosition = m_center;

@@ -4,6 +4,11 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.17.0 — 2026-08-02 · Azada limpia hongos, tope por zona y brillo de aura
+- **La azada limpia hongos**: cualquier operación de terreno (allanar, camino, cultivar) destruye los hongos (`HoeCleanPrefabs`, default `Pickable_Mushroom`) dentro de su radio — la forma pedida de recuperar zonas invadidas por la siembra. `HoeCleanEnabled` para apagarlo.
+- **Tope de hongos por ZONA**: los topes eran por manchón de 4 m y los manchones adyacentes se solapaban sin límite total. Ahora además: con `MushroomMaxPerZone` (12) o más hongos del mismo tipo en `MushroomZoneRadius` (20 m), no se multiplican más.
+- **Brillo del aura −10%**: `StarAuraBrightness` (0.9) multiplica el color del aura de todas las criaturas 3★+, salvajes y mascotas.
+
 ### v0.16.0 — 2026-08-02 · Habilidades por clase de criatura
 - Las habilidades de 3★+ ya no van por tier fijo: **cada especie tiene una habilidad de su clase** (config `StarClassMap`, pares `criatura:habilidad`) y las estrellas escalan magnitud/duración (3★/4★/5★). Especies sin entrada conservan el sistema anterior (3★ fuego / 4★ escarcha / 5★ rayo + resist del 5★).
 - **23 habilidades**: elementales (fuego, escarcha, rayo, veneno), robo de vida, raíz (inmoviliza 3-5 s), crítico, esquiva, celeridad, espinas, piel de hierro, inamovible, embestida aturdidora, aura de curación aliada, grito de guerra, escudo (burbuja vanilla), nova de fuego en área, desarme (te saca el arma y bloquea re-equipar 3-5 s), sangrado (DoT custom), arpón (te arrastra hacia la criatura, SE_Harpooned invertido — suelta al atacar/bloquear), náusea (te hace vomitar comidas, solo jugadores), empapar (mojado, sinergia con escarcha) y maldición (skills/stamina abajo).
