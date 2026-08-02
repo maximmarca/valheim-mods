@@ -75,7 +75,8 @@ Funcionan **igual que domesticar un chancho**:
 - Un animal domesticado que **remata** a un enemigo tiene **2%** de subir una estrella en el acto; los que **asistieron** (le pegaron en el último minuto) tienen **1%** cada uno.
 - Tope: 5 estrellas. Vale para cualquier domesticado — lobos de guerra, pero también un chancho valiente o tus ciervos.
 - Combina con la cría: un animal que subió de estrellas peleando **hereda ese nivel a sus crías** — entrenar a la madre mejora la línea de sangre.
-- **Se ven** *(v0.10.0)*: de 3★ en adelante cada estrella agranda al bicho y le intensifica el tinte (siguiendo la progresión natural de su especie), y al apuntarlo se ven los íconos de estrella reales (3, 4 o 5 estrellitas). Aplica también a los enemigos salvajes de estrellas altas — ojo con el greydwarf gigante oscuro.
+- **Se ven** *(v0.10–0.13)*: de 3★ en adelante cada estrella agranda al bicho, lo oscurece y le enciende un **brillo de color**: 3★ fuego naranja, 4★ rojo, 5★ violeta. Al apuntarlo, íconos de estrella reales.
+- **Pegan en serio** *(v0.13.0)*: el daño escala **exponencial** (×1,5 por estrella compuesto): 3★ pega 3,4×, 5★ **7,6×** (vanilla era 3,5× a lo sumo). Vale para tus mascotas entrenadas… y para los enemigos salvajes: si ves brillar algo violeta en la oscuridad, corré.
 
 ## Baúl de basura
 
@@ -94,5 +95,6 @@ Funcionan **igual que domesticar un chancho**:
 - En Valheim, la IA de los animales la simula **el cliente del jugador más cercano**, no el server. Y los efectos de sonido son objetos de red: los escuchan todos.
 - Por eso, **un cliente desactualizado contamina la partida**: si alguien juega con una versión vieja del mod, los ciervos que él simula gruñen como chanchos y sus bebés se ven adultos — para todos o para él según el efecto.
 - Regla simple: **después de cada update, todos bajan el `dist/TameableCreatures.dll` del repo antes de jugar**. El server lo actualiza Maxi.
+
 
 

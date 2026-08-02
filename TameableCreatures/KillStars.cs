@@ -93,6 +93,26 @@ internal static class Patch_Character_ApplyDamage_Assists
 	}
 }
 
+// v0.13.0: daño exponencial por estrella. Vanilla es lineal (+50%/estrella,
+// un 5★ pega 3,5×); ahora factor = base^estrellas (default 1,5: 1★ igual
+// vanilla, 3★ 3,4×, 5★ 7,6×). Aplica a todos: enemigos salvajes y mascotas.
+[HarmonyPatch(typeof(Attack), "GetLevelDamageFactor")]
+internal static class Patch_Attack_GetLevelDamageFactor
+{
+	private static void Postfix(ref float __result, Character ___m_character)
+	{
+		if (___m_character != null)
+		{
+			int num = Mathf.Max(0, ___m_character.GetLevel() - 1);
+			float value = TameableCreaturesPlugin.StarDamagePerStar.Value;
+			if (num >= 1 && value > 1f)
+			{
+				__result = Mathf.Pow(value, num);
+			}
+		}
+	}
+}
+
 // Al morir un enemigo: 2% para el que remató, 1% para cada asistente.
 [HarmonyPatch(typeof(Character), "OnDeath")]
 internal static class Patch_Character_OnDeath_KillStars

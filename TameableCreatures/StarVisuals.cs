@@ -33,20 +33,26 @@ internal static class Patch_ZNetScene_Awake_StarVisuals
 			LevelEffects.LevelSetup levelSetup = componentInChildren.m_levelSetups[0];
 			LevelEffects.LevelSetup levelSetup2 = componentInChildren.m_levelSetups[1];
 			float num3 = levelSetup2.m_scale - levelSetup.m_scale;
-			float num4 = levelSetup2.m_hue - levelSetup.m_hue;
-			float num5 = levelSetup2.m_saturation - levelSetup.m_saturation;
-			float num6 = levelSetup2.m_value - levelSetup.m_value;
+			// v0.13.0: estética "oscuro + brillo" para 3★+ — base más oscura y
+			// saturada por estrella, con emisión de color creciente (fuego → rojo
+			// → violeta). El tamaño sigue extrapolando la progresión de la especie.
+			Color[] array2 = new Color[3]
+			{
+				new Color(1f, 0.55f, 0.1f) * 1.6f,
+				new Color(1f, 0.12f, 0.05f) * 2.2f,
+				new Color(0.75f, 0.15f, 1f) * 2.8f
+			};
 			for (int i = 4; i <= num; i++)
 			{
 				int num7 = i - 3;
 				componentInChildren.m_levelSetups.Add(new LevelEffects.LevelSetup
 				{
 					m_scale = Mathf.Min(levelSetup2.m_scale + num3 * (float)num7, levelSetup2.m_scale * 2f),
-					m_hue = levelSetup2.m_hue + num4 * (float)num7,
-					m_saturation = Mathf.Clamp(levelSetup2.m_saturation + num5 * (float)num7, -1f, 1f),
-					m_value = Mathf.Clamp(levelSetup2.m_value + num6 * (float)num7, -1f, 1f),
-					m_setEmissiveColor = levelSetup2.m_setEmissiveColor,
-					m_emissiveColor = levelSetup2.m_emissiveColor,
+					m_hue = levelSetup2.m_hue,
+					m_saturation = Mathf.Clamp(levelSetup2.m_saturation + 0.15f * (float)num7, -1f, 1f),
+					m_value = Mathf.Clamp(levelSetup2.m_value - 0.22f * (float)num7, -1f, 1f),
+					m_setEmissiveColor = true,
+					m_emissiveColor = array2[Mathf.Min(num7 - 1, array2.Length - 1)] * (1f + 0.3f * (float)(num7 - array2.Length > 0 ? num7 - array2.Length : 0)),
 					m_enableObject = levelSetup2.m_enableObject
 				});
 			}

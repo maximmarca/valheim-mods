@@ -4,6 +4,10 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.13.0 — 2026-08-02 · Daño exponencial + visuales dramáticos por estrella
+- **Daño exponencial**: vanilla escala lineal (+50% por estrella; un 5★ pega 3,5×). Ahora `factor = StarDamagePerStar ^ estrellas` (default 1,5): 1★ igual vanilla, 3★ 3,4×, 5★ **7,6×**. Aplica a enemigos salvajes y mascotas por igual. Config `StarDamagePerStar` (1 = volver a vanilla).
+- **Visuales dramáticos 3★+**: en vez de la extrapolación sutil, base **más oscura y saturada** por estrella con **emisión brillante creciente**: 3★ fuego naranja, 4★ rojo, 5★ violeta. El tamaño sigue la progresión de cada especie.
+
 ### v0.12.0 — 2026-08-02 · Baúl de basura
 - Pieza nueva del martillo (pestaña **Muebles**): clon del cofre de madera, tintado oscuro, nombre "Baúl de basura". Todo lo que se guarde adentro **se destruye cada 4 s** (config `TrashDelaySeconds`; `TrashChestEnabled` para apagarlo).
 - El prefab se registra en runtime (`piece_trashchest_tc`) en ZNetScene + tabla del martillo. **Requiere el mod en server y todos los clientes**: un cliente sin el mod que cargue la zona verá errores de "Missing prefab" — no colocar hasta que todos estén al día.
@@ -83,6 +87,7 @@ Rediseño de la siembra por caca en tres grupos (spec de Maxi):
 
 ## Infraestructura
 - **2026-08-01**: server dserver migrado a BepInEx nativo (`BEPINEX=true`, imagen lloesche — sobrevive autoupdates). 8 plugins activos: ActiveZones, BuildTweaks, DeathTweaks, MoreStars, PortalTweaks, ServerRules, ServerWelcome, TameableCreatures. Mundo MaxiFer conservado (backup pre-mods `worlds_local.pre-bepinex-20260801` + zips automáticos cada 6 h).
+
 
 
 
