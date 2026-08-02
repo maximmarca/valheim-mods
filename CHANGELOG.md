@@ -4,6 +4,9 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.14.1 — 2026-08-02 · Estallidos elementales en el impacto
+- Cada golpe de un 3★+ ahora **explota visiblemente** en el punto de impacto con el efecto vanilla de su elemento: fuego (`fx_DvergerMage_Fire_hit`), hielo (`vfx_frostarrow_hit`), rayo (`fx_lightningweapon_hit`). Configurable por `StarHitFx` (pares estrellas:prefab). Las víctimas además arden/se congelan por los estados del daño elemental.
+
 ### v0.14.0 — 2026-08-02 · Habilidades especiales por estrellas
 - **3★ Ígneo**: sus golpes suman **daño de fuego** (30% del daño físico) → quemadura. **4★ Gélido**: **escarcha** → frena al objetivo (el brillo pasó de rojo a **celeste hielo** para coincidir). **5★ Tormenta**: **rayo** + **25% de resistencia física** pasiva.
 - Aplica a salvajes y domesticados por igual. Config: `StarElementalPercent` (0.3; 0 = apagado) y `StarFiveResistPercent` (25). Hook: prefix en `Character.ApplyDamage`.

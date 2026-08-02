@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using HarmonyLib;
 using UnityEngine;
 
@@ -10,6 +11,36 @@ namespace TameableCreatures;
 [HarmonyPatch(typeof(Character), "ApplyDamage")]
 internal static class Patch_Character_ApplyDamage_StarPowers
 {
+	private static readonly Dictionary<int, GameObject> s_fxCache = new Dictionary<int, GameObject>();
+
+	// v0.14.1: estallido elemental visible en el punto de impacto
+	private static void SpawnHitFx(int stars, Vector3 point)
+	{
+		if (ZNetScene.instance == null)
+		{
+			return;
+		}
+		if (!s_fxCache.TryGetValue(stars, out var value))
+		{
+			value = null;
+			string[] array = TameableCreaturesPlugin.StarHitFx.Value.Split(',');
+			foreach (string text in array)
+			{
+				int num = text.IndexOf(':');
+				if (num > 0 && text.Substring(0, num).Trim() == stars.ToString())
+				{
+					value = ZNetScene.instance.GetPrefab(text.Substring(num + 1).Trim());
+					break;
+				}
+			}
+			s_fxCache[stars] = value;
+		}
+		if (value != null)
+		{
+			Object.Instantiate(value, point, Quaternion.identity);
+		}
+	}
+
 	private static void Prefix(Character __instance, HitData hit)
 	{
 		if (hit == null || __instance == null)
@@ -38,6 +69,7 @@ internal static class Patch_Character_ApplyDamage_StarPowers
 					{
 						hit.m_damage.m_lightning += num2;
 					}
+					SpawnHitFx(Mathf.Min(num, 5), hit.m_point);
 				}
 			}
 		}
