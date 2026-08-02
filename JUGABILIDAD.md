@@ -76,6 +76,10 @@ Funcionan **igual que domesticar un chancho**:
 - Tus animales **envejecen**: viven ~30 días de juego (cada estrella suma +20% — cuidá a los 5★, viven el doble). Cerca del final se ponen **grises, lentos y dejan de criar**: es el aviso para asegurar descendencia. Después, se van en paz (sin drops). La cría constante ya no es opcional: es cómo sobrevive tu manada.
 - El mundo también vive: los **nidos y campamentos destruidos renacen** a la semana (si no acampás encima), y cuanto **más viejo el mundo, más estrellas** traen los bichos salvajes. Limpiar una zona ya no es para siempre — y el mundo se pone más bravo con los meses.
 
+## Barcos a carbón *(v0.20.0)*
+
+- Cargá **carbón en la baulera** del barco y navegá un **50% más rápido** — vela y remo. Se consume según cuánto exijas el timón: remando dura 5 min por carbón, a media vela 2 min, y **a toda vela un carbón cada 30 segundos** — el viaje rápido se paga en hollín. Sin carbón, el barco vuelve a ser el de siempre.
+
 ## Estrellas por combate
 
 - Un animal domesticado que **remata** a un enemigo tiene **2%** de subir una estrella en el acto; los que **asistieron** (le pegaron en el último minuto) tienen **1%** cada uno.

@@ -4,6 +4,10 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.20.0 — 2026-08-02 · Barcos a carbón (spec de Fer)
+- Los barcos **con baulera** navegan **+50% más rápido si hay carbón adentro** (vela Y remo). Consumo según la velocidad del timón: remo 1 carbón/5 min, media vela 1/2 min, vela llena **1/30 s**. Sin carbón, velocidad normal. La balsa no tiene baulera: queda afuera.
+- El boost lo aplica quien simula la física del barco — server y todos los clientes deben tener el mod (ya lo tienen). Config sección `[Barcos]` (`CoalBoostFactor`, consumos por velocidad).
+
 ### v0.19.1 — 2026-08-02 · Fix: stats sin pisar el nombre
 - La línea de stats se pisaba con el nombre y las estrellas (reporte de Fer): ahora va más abajo, alineada arriba y sin ajuste de línea. `MobStatsOffsetY` para afinar la posición sin recompilar.
 
