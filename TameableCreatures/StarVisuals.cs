@@ -17,6 +17,9 @@ internal static class Patch_ZNetScene_Awake_StarVisuals
 {
 	private static void Postfix(ZNetScene __instance)
 	{
+		// v0.15.0: las plantillas del aura son objetos de escena — reconstruir en
+		// cada entrada al mundo (los prefabs modificados, en cambio, persisten).
+		StarAuraTemplates.Build(__instance);
 		int num = Mathf.Clamp(TameableCreaturesPlugin.StarVisualsMaxStars.Value, 2, 10) + 1;
 		int num2 = 0;
 		foreach (GameObject prefab in __instance.m_prefabs)
@@ -26,7 +29,15 @@ internal static class Patch_ZNetScene_Awake_StarVisuals
 				continue;
 			}
 			LevelEffects componentInChildren = prefab.GetComponentInChildren<LevelEffects>(includeInactive: true);
-			if (componentInChildren == null || componentInChildren.m_levelSetups == null || componentInChildren.m_levelSetups.Count != 2)
+			if (componentInChildren == null || componentInChildren.m_levelSetups == null)
+			{
+				continue;
+			}
+			if (prefab.GetComponent<StarAura>() == null)
+			{
+				prefab.AddComponent<StarAura>();
+			}
+			if (componentInChildren.m_levelSetups.Count != 2)
 			{
 				continue;
 			}

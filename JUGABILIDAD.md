@@ -75,7 +75,7 @@ Funcionan **igual que domesticar un chancho**:
 - Un animal domesticado que **remata** a un enemigo tiene **2%** de subir una estrella en el acto; los que **asistieron** (le pegaron en el último minuto) tienen **1%** cada uno.
 - Tope: 5 estrellas. Vale para cualquier domesticado — lobos de guerra, pero también un chancho valiente o tus ciervos.
 - Combina con la cría: un animal que subió de estrellas peleando **hereda ese nivel a sus crías** — entrenar a la madre mejora la línea de sangre.
-- **Se ven** *(v0.10–0.13)*: de 3★ en adelante cada estrella agranda al bicho, lo oscurece y le enciende un **brillo de color**: 3★ fuego naranja, 4★ rojo, 5★ violeta. Al apuntarlo, íconos de estrella reales.
+- **Se ven** *(v0.10–0.15)*: de 3★ en adelante cada estrella agranda al bicho siguiendo la progresión de su especie y, desde la 0.15.0, le prende un **aura elemental** inconfundible: **3★ llamas de fuego, 4★ llamas de escarcha, 5★ llamas violetas de tormenta** — a juego con su habilidad. Al apuntarlo, íconos de estrella reales.
 - **Pegan en serio** *(v0.13.0)*: el daño escala **exponencial** (×1,5 por estrella compuesto): 3★ pega 3,4×, 5★ **7,6×** (vanilla era 3,5× a lo sumo). Vale para tus mascotas entrenadas… y para los enemigos salvajes: si ves brillar algo violeta en la oscuridad, corré.
 - **Habilidades** *(v0.14.0)*: **3★ Ígneo** (brillo naranja) prende fuego con cada golpe; **4★ Gélido** (brillo celeste hielo) congela y frena; **5★ Tormenta** (brillo violeta) golpea con rayos y aguanta un **25% más de daño físico**. Tu jauría las gana al subir de estrellas — y los enemigos salvajes también las tienen.
 

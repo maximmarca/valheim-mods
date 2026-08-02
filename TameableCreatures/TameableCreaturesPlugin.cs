@@ -9,14 +9,14 @@ using UnityEngine;
 
 namespace TameableCreatures;
 
-[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.14.3")]
+[BepInPlugin("fer.valheim.tameablecreatures", "TameableCreatures", "0.15.0")]
 public class TameableCreaturesPlugin : BaseUnityPlugin
 {
 	public const string PluginGuid = "fer.valheim.tameablecreatures";
 
 	public const string PluginName = "TameableCreatures";
 
-	public const string PluginVersion = "0.14.3";
+	public const string PluginVersion = "0.15.0";
 
 	internal static ManualLogSource Log;
 
@@ -116,6 +116,10 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 
 	internal static ConfigEntry<float> StarGlowIntensity;
 
+	internal static ConfigEntry<bool> StarAuraEnabled;
+
+	internal static ConfigEntry<float> StarAuraScale;
+
 	internal static ConfigEntry<string> ExtraFood;
 
 	internal static ConfigEntry<bool> TrashChestEnabled;
@@ -176,8 +180,10 @@ public class TameableCreaturesPlugin : BaseUnityPlugin
 		StarFiveResistPercent = base.Config.Bind("Combate", "StarFiveResistPercent", 25f, new ConfigDescription("Resistencia física pasiva (%) de las criaturas 5★. 0 = apagado.", new AcceptableValueRange<float>(0f, 90f)));
 		StarHitFx = base.Config.Bind("Combate", "StarHitFx", "3:fx_DvergerMage_Fire_hit,4:vfx_frostarrow_hit,5:fx_lightningweapon_hit", "Efecto visual al impactar, por estrellas (pares estrellas:prefab separados por coma). Vacío = sin efecto.");
 		StarGlowIntensity = base.Config.Bind("Combate", "StarGlowIntensity", 0f, new ConfigDescription("Intensidad del brillo de color de los 3★+ (sin máscara de emisión, valores altos dejan el cuerpo entero fullbright tipo cámara térmica). 0 = sin brillo, solo base oscura+saturada.", new AcceptableValueRange<float>(0f, 3f)));
+		StarAuraEnabled = base.Config.Bind("Combate", "StarAuraEnabled", defaultValue: true, "Aura elemental visible en criaturas 3★+ (partículas de llama vanilla): 3★ fuego, 4★ escarcha, 5★ rayo violeta. Solo visual, por cliente.");
+		StarAuraScale = base.Config.Bind("Combate", "StarAuraScale", 1f, new ConfigDescription("Multiplicador del tamaño del aura elemental (el tamaño base sigue al cuerpo de cada especie).", new AcceptableValueRange<float>(0.2f, 3f)));
 		new Harmony("fer.valheim.tameablecreatures").PatchAll();
-		Log.LogInfo("TameableCreatures 0.14.3 cargado (todo lo anterior + habilidades por estrellas)");
+		Log.LogInfo("TameableCreatures 0.15.0 cargado (todo lo anterior + aura elemental 3-5 estrellas)");
 	}
 
 	internal static void CopyPublicFields<T>(T source, T target) where T : Component

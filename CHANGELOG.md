@@ -4,6 +4,12 @@ Registro completo de cambios. Detalle de jugabilidad en [JUGABILIDAD.md](JUGABIL
 
 ## TameableCreatures
 
+### v0.15.0 — 2026-08-02 · Aura elemental para 3★+
+- Diagnóstico del pendiente "los 3★+ no se distinguen": la extrapolación autoral (0.14.3) hereda deltas de tinte casi nulos en muchas especies y una escala de +5-15% por estrella — no había canal visual con margen. En vez de seguir con materiales, **aura de partículas** a juego con las habilidades 0.14.x: **3★ llama de fuego, 4★ llama de escarcha** (antorcha azul vanilla si existe, o llama teñida azul hielo), **5★ llama violeta "rayo"**.
+- Implementación: componente `StarAura` en cada criatura con `LevelEffects`; clona las llamas de la antorcha vanilla (sin `ZNetView`, luces, audio ni humo), las centra en el cuerpo y las escala por el radio del collider de la especie. Se renueva en vivo al subir de estrella (mismo `m_onLevelSet` del vanilla). Solo visual y por cliente: **un cliente sin el mod no ve nada y no da errores**.
+- Config nueva: `StarAuraEnabled` (true) y `StarAuraScale` (1). Los cuernos del ciervo y demás objetos por nivel quedan intactos.
+- Nota de prueba descubierta en el camino: el caché estático de materiales del vanilla (`LevelEffects.m_materials`) y los setups extendidos sobreviven al relog — **para probar cambios de config visual hay que cerrar el juego por completo**, reloguear no alcanza.
+
 ### v0.14.3 — 2026-08-02 · Fix: colores mate/homogéneos en 3★+
 - Los shifts fijos de saturación/valor aplanaban la paleta autoral de cada especie (resultado mate, homogéneo, desaturado). Se volvió a la extrapolación de la progresión de color propia de cada especie (deltas 1★→2★ continuados) y la emisión quedó **apagada por defecto** (`StarGlowIntensity = 0`; opcional para quien la quiera). Configs de server y cliente Maxi puestos en 0.
 
